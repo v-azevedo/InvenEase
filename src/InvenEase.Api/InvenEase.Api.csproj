@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InvenEase.Contracts\InvenEase.Contracts.csproj" />
+    <ProjectReference Include="..\InvenEase.Application\InvenEase.Application.csproj" />
+    <ProjectReference Include="..\InvenEase.Infrastructure\InvenEase.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
