@@ -6,13 +6,13 @@ namespace InvenEase.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ControllerBase
 {
-    [Route("register")]
+    [HttpPost("register")]
     public IActionResult Register()
     {
         return Ok();
     }
 
-    [Route("login")]
+    [HttpPost("login")]
     public IActionResult Login()
     {
         return Ok();
