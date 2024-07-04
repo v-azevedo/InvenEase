@@ -1,6 +1,4 @@
 using InvenEase.Application;
-
-using InvenEase.Application;
 using InvenEase.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
