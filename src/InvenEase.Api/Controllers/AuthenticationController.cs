@@ -1,3 +1,4 @@
+using InvenEase.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.Controllers;
@@ -7,14 +8,15 @@ namespace InvenEase.Api.Controllers;
 public class AuthenticationController : ControllerBase
 {
     [HttpPost("register")]
-    public IActionResult Register()
+    public IActionResult Register(RegisterRequest request)
     {
-        return Ok();
+        return Ok(request);
     }
 
     [HttpPost("login")]
-    public IActionResult Login()
+    public IActionResult Login(LoginRequest request)
     {
-        return Ok();
+        return Ok(request);
     }
+
 }
