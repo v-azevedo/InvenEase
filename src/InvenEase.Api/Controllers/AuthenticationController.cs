@@ -29,7 +29,7 @@ public class AuthenticationController : ControllerBase
             authResult.FirstName,
             authResult.LastName,
             authResult.Email,
-            authResult.Role,
+            authResult.Role.ToString(),
             authResult.Token);
 
         return Ok(response);
@@ -47,7 +47,7 @@ public class AuthenticationController : ControllerBase
             authResult.FirstName,
             authResult.LastName,
             authResult.Email,
-            authResult.Role,
+            authResult.Role.ToString(),
             authResult.Token);
 
         return Ok(response);

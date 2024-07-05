@@ -1,3 +1,5 @@
+using InvenEase.Domain.Common;
+
 namespace InvenEase.Application.Services.Authentication;
 
 public record AuthenticationResult(
@@ -5,6 +7,6 @@ public record AuthenticationResult(
     string FirstName,
     string LastName,
     string Email,
-    string Role,
+    Role Role,
     string Token
 );
