@@ -3,6 +3,7 @@ using FluentAssertions;
 using InvenEase.Api.Controllers;
 using InvenEase.Application.Services.Authentication;
 using InvenEase.Contracts.Authentication;
+using InvenEase.Domain.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.UnitTests.Controllers;
@@ -46,7 +47,7 @@ public class AuthenticationControllerTests
             "firstName",
             "lastName",
             "email",
-            "requester",
+            Role.Requester,
             "token"
         );
 
@@ -63,7 +64,11 @@ public class AuthenticationControllerTests
 
         // Assert
         response.Should().NotBeNull();
-        response.Should().BeEquivalentTo(authResult, options => options.Excluding(o => o.Id));
+        response!.Role.Should().BeEquivalentTo(Role.Requester.ToString());
+        response.Should().BeEquivalentTo(authResult,
+            options => options
+                .Excluding(o => o.Id)
+                .Excluding(o => o.Role));
     }
 
     [Fact]
@@ -94,7 +99,7 @@ public class AuthenticationControllerTests
             "firstName",
             "lastName",
             "email",
-            "requester",
+            Role.Requester,
             "token"
         );
 
@@ -109,6 +114,10 @@ public class AuthenticationControllerTests
 
         // Assert
         response.Should().NotBeNull();
-        response.Should().BeEquivalentTo(authResult, options => options.Excluding(o => o.Id));
+        response!.Role.Should().BeEquivalentTo(Role.Requester.ToString());
+        response.Should().BeEquivalentTo(authResult,
+            options => options
+                .Excluding(o => o.Id)
+                .Excluding(o => o.Role));
     }
 }
