@@ -18,6 +18,7 @@ public class AuthenticationControllerTests
 
     [Fact]
     public void AuthenticationController_Register_ReturnOk()
+
     {
         // Arrange
         var controller = new AuthenticationController(_authenticationService);
@@ -32,6 +33,7 @@ public class AuthenticationControllerTests
 
     [Fact]
     public void AuthenticationController_Login_ReturnOK()
+
     {
         // Arrange
         var controller = new AuthenticationController(_authenticationService);

@@ -5,6 +5,7 @@ using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Services.Authentication;
 using InvenEase.Domain.Entities;
 
+
 namespace InvenEase.Application.UnitTests.Services.Authentication;
 
 public class AuthenticationServiceTests
