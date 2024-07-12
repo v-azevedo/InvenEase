@@ -1,12 +1,8 @@
-using InvenEase.Domain.Common;
+using InvenEase.Domain.Entities;
 
 namespace InvenEase.Application.Services.Authentication;
 
 public record AuthenticationResult(
-    Guid Id,
-    string FirstName,
-    string LastName,
-    string Email,
-    Role Role,
+    User User,
     string Token
 );

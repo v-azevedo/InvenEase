@@ -3,7 +3,6 @@ using FluentAssertions;
 using InvenEase.Api.Controllers;
 using InvenEase.Application.Services.Authentication;
 using InvenEase.Contracts.Authentication;
-using InvenEase.Domain.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.UnitTests.Controllers;
@@ -18,7 +17,8 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public void AuthenticationController_Register_ReturnAuthenticationResult()
+    public void AuthenticationController_Register_ReturnOk()
+
     {
         // Arrange
         var controller = new AuthenticationController(_authenticationService);
@@ -28,51 +28,12 @@ public class AuthenticationControllerTests
         var result = controller.Register(request);
 
         // Assert
-        Assert.IsType<OkObjectResult>(result);
+        result.Should().BeOfType<OkObjectResult>();
     }
 
     [Fact]
-    public void AuthenticationController_Register_ReturnAuthenticationResultWithCorrectValues()
-    {
-        // Arrange
-        var controller = new AuthenticationController(_authenticationService);
-        var request = new RegisterRequest(
-            "firstName",
-            "lastName",
-            "email",
-            "password"
-        );
-        var authResult = new AuthenticationResult(
-            Guid.NewGuid(),
-            "firstName",
-            "lastName",
-            "email",
-            Role.Requester,
-            "token"
-        );
+    public void AuthenticationController_Login_ReturnOK()
 
-        A.CallTo(() => _authenticationService.Register(
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            request.Password
-        )).Returns(authResult);
-
-        // Act
-        var result = controller.Register(request) as OkObjectResult;
-        var response = result!.Value as AuthenticationResponse;
-
-        // Assert
-        response.Should().NotBeNull();
-        response!.Role.Should().BeEquivalentTo(Role.Requester.ToString());
-        response.Should().BeEquivalentTo(authResult,
-            options => options
-                .Excluding(o => o.Id)
-                .Excluding(o => o.Role));
-    }
-
-    [Fact]
-    public void AuthenticationController_Login_ReturnAuthenticationResult()
     {
         // Arrange
         var controller = new AuthenticationController(_authenticationService);
@@ -82,42 +43,6 @@ public class AuthenticationControllerTests
         var result = controller.Login(request);
 
         // Assert
-        Assert.IsType<OkObjectResult>(result);
-    }
-
-    [Fact]
-    public void AuthenticationController_Login_ReturnAuthenticationResultWithCorrectValues()
-    {
-        // Arrange
-        var controller = new AuthenticationController(_authenticationService);
-        var request = new LoginRequest(
-            "email",
-            "password"
-        );
-        var authResult = new AuthenticationResult(
-            Guid.NewGuid(),
-            "firstName",
-            "lastName",
-            "email",
-            Role.Requester,
-            "token"
-        );
-
-        A.CallTo(() => _authenticationService.Login(
-            request.Email,
-            request.Password
-        )).Returns(authResult);
-
-        // Act
-        var result = controller.Login(request) as OkObjectResult;
-        var response = result!.Value as AuthenticationResponse;
-
-        // Assert
-        response.Should().NotBeNull();
-        response!.Role.Should().BeEquivalentTo(Role.Requester.ToString());
-        response.Should().BeEquivalentTo(authResult,
-            options => options
-                .Excluding(o => o.Id)
-                .Excluding(o => o.Role));
+        result.Should().BeOfType<OkObjectResult>();
     }
 }

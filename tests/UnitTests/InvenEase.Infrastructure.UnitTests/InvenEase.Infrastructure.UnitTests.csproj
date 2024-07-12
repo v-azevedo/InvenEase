@@ -24,4 +24,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\InvenEase.Domain\InvenEase.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\InvenEase.Infrastructure\InvenEase.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
