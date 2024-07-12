@@ -1,6 +1,5 @@
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
-using InvenEase.Domain.Common;
 using InvenEase.Domain.Entities;
 
 
@@ -24,7 +23,7 @@ public class AuthenticationService : IAuthenticationService
             throw new Exception("Invalid email or password");
         }
 
-        var token = _jwtTokenGenerator.GenerateToken(user.Id, user.FirstName, user.LastName, user.Role);
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(
             user,
@@ -48,7 +47,7 @@ public class AuthenticationService : IAuthenticationService
 
         _userRepository.Add(user);
 
-        var token = _jwtTokenGenerator.GenerateToken(user.Id, firstName, lastName, Role.Requester);
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(
             user,
