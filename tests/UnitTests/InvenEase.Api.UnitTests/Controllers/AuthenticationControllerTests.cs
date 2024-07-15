@@ -1,57 +1,54 @@
 using FakeItEasy;
 using FluentAssertions;
 using InvenEase.Api.Controllers;
-using InvenEase.Application.Services.Authentication.Commands;
-using InvenEase.Application.Services.Authentication.Common;
-using InvenEase.Application.Services.Authentication.Queries;
+using InvenEase.Application.Authentication.Commands.Register;
+using InvenEase.Application.Authentication.Common;
+using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Contracts.Authentication;
 using InvenEase.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.UnitTests.Controllers;
 
 public class AuthenticationControllerTests
 {
-    private readonly IAuthenticationQueryService _authenticationQueryService;
-    private readonly IAuthenticationCommandService _authenticationCommandService;
+    private readonly ISender _mediator;
     private readonly AuthenticationController _controller;
 
     public AuthenticationControllerTests()
     {
-        _authenticationQueryService = A.Fake<IAuthenticationQueryService>();
-        _authenticationCommandService = A.Fake<IAuthenticationCommandService>();
+        _mediator = A.Fake<ISender>();
 
         // SUT
-        _controller = new AuthenticationController(_authenticationQueryService, _authenticationCommandService);
+        _controller = new AuthenticationController(_mediator);
     }
 
     [Fact]
-    public void AuthenticationController_Register_ReturnOk()
+    public async Task AuthenticationController_Register_ReturnOk()
     {
         // Arrange
         var request = A.Fake<RegisterRequest>();
-        A.CallTo(() => _authenticationCommandService
-            .Register(request.FirstName, request.LastName, request.Email, request.Password))
-                .Returns(new AuthenticationResult(new User { }, Token: ""));
+        A.CallTo(() => _mediator.Send(A<RegisterCommand>._, default))
+            .Returns(new AuthenticationResult(new User { }, Token: ""));
 
         // Act
-        var result = _controller.Register(request);
+        var result = await _controller.Register(request);
 
         // Assert
         result.Should().BeOfType<OkObjectResult>();
     }
 
     [Fact]
-    public void AuthenticationController_Login_ReturnOK()
+    public async Task AuthenticationController_Login_ReturnOK()
     {
         // Arrange
         var request = A.Fake<LoginRequest>();
-        A.CallTo(() => _authenticationQueryService
-            .Login(request.Email, request.Password))
-                .Returns(new AuthenticationResult(new User { }, Token: ""));
+        A.CallTo(() => _mediator.Send(A<LoginQuery>._, default))
+            .Returns(new AuthenticationResult(new User { }, Token: ""));
 
         // Act
-        var result = _controller.Login(request);
+        var result = await _controller.Login(request);
 
         // Assert
         result.Should().BeOfType<OkObjectResult>();
