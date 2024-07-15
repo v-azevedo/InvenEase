@@ -3,6 +3,9 @@ using FluentAssertions;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Services.Authentication;
+using InvenEase.Application.Services.Authentication.Commands;
+using InvenEase.Application.Services.Authentication.Common;
+using InvenEase.Application.Services.Authentication.Queries;
 using InvenEase.Domain.Common.Errors;
 using InvenEase.Domain.Entities;
 
@@ -30,7 +33,7 @@ public class AuthenticationServiceTests
     public void AuthenticationService_Login_ReturnAuthenticationResult()
     {
         // Arrange
-        var service = new AuthenticationService(_jwtTokenGenerator, _userRepository);
+        var service = new AuthenticationQueryService(_jwtTokenGenerator, _userRepository);
 
         A.CallTo(() => _userRepository.GetUserByEmail(user.Email)).Returns(user);
 
@@ -46,7 +49,7 @@ public class AuthenticationServiceTests
     public void AuthenticationService_Register_ReturnAuthenticationResult()
     {
         // Arrange
-        var service = new AuthenticationService(_jwtTokenGenerator, _userRepository);
+        var service = new AuthenticationCommandService(_jwtTokenGenerator, _userRepository);
 
         A.CallTo(() => _userRepository.GetUserByEmail(user.Email)).Returns(null);
 
@@ -62,7 +65,7 @@ public class AuthenticationServiceTests
     public void AuthenticationService_Login_ReturnCorrectUserByEmail()
     {
         // Arrange
-        var service = new AuthenticationService(_jwtTokenGenerator, _userRepository);
+        var service = new AuthenticationQueryService(_jwtTokenGenerator, _userRepository);
 
         var expectedResult = new AuthenticationResult(
             user,
@@ -81,7 +84,7 @@ public class AuthenticationServiceTests
     public void AuthenticationService_Login_ShouldBeErrorWhenInvalidCredentials()
     {
         // Arrange
-        var service = new AuthenticationService(_jwtTokenGenerator, _userRepository);
+        var service = new AuthenticationQueryService(_jwtTokenGenerator, _userRepository);
         A.CallTo(() => _userRepository.GetUserByEmail("test.user@email.com")).Returns(null);
 
         // Act
@@ -96,7 +99,7 @@ public class AuthenticationServiceTests
     public void AuthenticationService_Register_ShouldBeErrorWhenDuplicateEmail()
     {
         // Arrange
-        var service = new AuthenticationService(_jwtTokenGenerator, _userRepository);
+        var service = new AuthenticationCommandService(_jwtTokenGenerator, _userRepository);
         A.CallTo(() => _userRepository.GetUserByEmail(user.Email)).Returns(user);
 
         // Act

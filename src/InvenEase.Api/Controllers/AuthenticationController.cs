@@ -1,24 +1,24 @@
 using ErrorOr;
-using InvenEase.Application.Services.Authentication;
+using InvenEase.Application.Services.Authentication.Commands;
+using InvenEase.Application.Services.Authentication.Common;
+using InvenEase.Application.Services.Authentication.Queries;
 using InvenEase.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.Controllers;
 
 [Route("auth")]
-public class AuthenticationController : ApiController
+public class AuthenticationController(
+    IAuthenticationQueryService authenticationQueryService,
+    IAuthenticationCommandService authenticationCommandService) : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
-
-    public AuthenticationController(IAuthenticationService authenticationService)
-    {
-        _authenticationService = authenticationService;
-    }
+    private readonly IAuthenticationCommandService _authenticationCommandService = authenticationCommandService;
+    private readonly IAuthenticationQueryService _authenticationQueryService = authenticationQueryService;
 
     [HttpPost("register")]
     public IActionResult Register(RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(
+        ErrorOr<AuthenticationResult> authResult = _authenticationCommandService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
@@ -33,7 +33,7 @@ public class AuthenticationController : ApiController
     [HttpPost("login")]
     public IActionResult Login(LoginRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationService.Login(
+        ErrorOr<AuthenticationResult> authResult = _authenticationQueryService.Login(
             request.Email,
             request.Password);
 
