@@ -1,28 +1,28 @@
 using ErrorOr;
-using InvenEase.Application.Services.Authentication.Commands;
-using InvenEase.Application.Services.Authentication.Common;
-using InvenEase.Application.Services.Authentication.Queries;
+using InvenEase.Application.Authentication.Commands.Register;
+using InvenEase.Application.Authentication.Common;
+using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Contracts.Authentication;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.Controllers;
 
 [Route("auth")]
-public class AuthenticationController(
-    IAuthenticationQueryService authenticationQueryService,
-    IAuthenticationCommandService authenticationCommandService) : ApiController
+public class AuthenticationController(ISender mediator) : ApiController
 {
-    private readonly IAuthenticationCommandService _authenticationCommandService = authenticationCommandService;
-    private readonly IAuthenticationQueryService _authenticationQueryService = authenticationQueryService;
+    private readonly ISender _mediator = mediator;
 
     [HttpPost("register")]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationCommandService.Register(
+        var command = new RegisterCommand(
             request.FirstName,
             request.LastName,
             request.Email,
             request.Password);
+
+        ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
 
         return authResult.Match(
             authResult => Ok(MapAuthenticationResult(authResult)),
@@ -31,11 +31,13 @@ public class AuthenticationController(
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationQueryService.Login(
+        var query = new LoginQuery(
             request.Email,
             request.Password);
+
+        ErrorOr<AuthenticationResult> authResult = await _mediator.Send(query);
 
         return authResult.Match(
              authResult => Ok(MapAuthenticationResult(authResult)),
@@ -53,5 +55,4 @@ public class AuthenticationController(
             authResult.User.Role.ToString(),
             authResult.Token);
     }
-
 }

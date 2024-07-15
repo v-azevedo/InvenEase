@@ -1,5 +1,4 @@
-using InvenEase.Application.Services.Authentication.Commands;
-using InvenEase.Application.Services.Authentication.Queries;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InvenEase.Application;
@@ -8,8 +7,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IAuthenticationQueryService, AuthenticationQueryService>();
-        services.AddScoped<IAuthenticationCommandService, AuthenticationCommandService>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
         return services;
     }

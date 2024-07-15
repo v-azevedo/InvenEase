@@ -1,33 +1,33 @@
 using ErrorOr;
+using InvenEase.Application.Authentication.Common;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
-using InvenEase.Application.Services.Authentication.Common;
 using InvenEase.Domain.Common.Errors;
 using InvenEase.Domain.Entities;
+using MediatR;
 
+namespace InvenEase.Application.Authentication.Commands.Register;
 
-namespace InvenEase.Application.Services.Authentication.Commands;
-
-public class AuthenticationCommandService(
-    IJwtTokenGenerator jwtTokenGenerator,
-    IUserRepository userRepository) : IAuthenticationCommandService
+public class RegisterCommandHandler(
+    IUserRepository userRepository,
+    IJwtTokenGenerator jwtTokenGenerator) : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator = jwtTokenGenerator;
     private readonly IUserRepository _userRepository = userRepository;
 
-    public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
+    public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {
-        if (_userRepository.GetUserByEmail(email) is not null)
+        if (_userRepository.GetUserByEmail(command.Email) is not null)
         {
             return Errors.User.DuplicateEmail;
         }
 
         var user = new User
         {
-            FirstName = firstName,
-            LastName = lastName,
-            Email = email,
-            Password = password,
+            FirstName = command.FirstName,
+            LastName = command.LastName,
+            Email = command.Email,
+            Password = command.Password,
         };
 
         _userRepository.Add(user);

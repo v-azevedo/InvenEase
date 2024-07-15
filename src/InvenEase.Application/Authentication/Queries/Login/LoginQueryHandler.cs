@@ -1,23 +1,23 @@
 using ErrorOr;
+using InvenEase.Application.Authentication.Common;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
-using InvenEase.Application.Services.Authentication.Common;
 using InvenEase.Domain.Common.Errors;
 using InvenEase.Domain.Entities;
+using MediatR;
 
+namespace InvenEase.Application.Authentication.Queries.Login;
 
-namespace InvenEase.Application.Services.Authentication.Queries;
-
-public class AuthenticationQueryService(
-    IJwtTokenGenerator jwtTokenGenerator,
-    IUserRepository userRepository) : IAuthenticationQueryService
+public class LoginQueryHandler(
+    IUserRepository userRepository,
+    IJwtTokenGenerator jwtTokenGenerator) : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator = jwtTokenGenerator;
     private readonly IUserRepository _userRepository = userRepository;
 
-    public ErrorOr<AuthenticationResult> Login(string email, string password)
+    public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
-        if (_userRepository.GetUserByEmail(email) is not User user || user.Password != password)
+        if (_userRepository.GetUserByEmail(query.Email) is not User user || user.Password != query.Password)
         {
             return Errors.Authentication.InvalidCredentials;
         }
