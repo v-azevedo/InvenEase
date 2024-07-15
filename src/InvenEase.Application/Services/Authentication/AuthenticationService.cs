@@ -1,6 +1,7 @@
+using ErrorOr;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
-using InvenEase.Domain.Common;
+using InvenEase.Domain.Common.Errors;
 using InvenEase.Domain.Entities;
 
 
@@ -17,25 +18,25 @@ public class AuthenticationService : IAuthenticationService
         _userRepository = userRepository;
     }
 
-    public AuthenticationResult Login(string email, string password)
+    public ErrorOr<AuthenticationResult> Login(string email, string password)
     {
         if (_userRepository.GetUserByEmail(email) is not User user || user.Password != password)
         {
-            throw new Exception("Invalid email or password");
+            return Errors.Authentication.InvalidCredentials;
         }
 
-        var token = _jwtTokenGenerator.GenerateToken(user.Id, user.FirstName, user.LastName, user.Role);
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(
             user,
             token);
     }
 
-    public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+    public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
     {
         if (_userRepository.GetUserByEmail(email) is not null)
         {
-            throw new Exception("User already exists with the given email.");
+            return Errors.User.DuplicateEmail;
         }
 
         var user = new User
@@ -48,7 +49,7 @@ public class AuthenticationService : IAuthenticationService
 
         _userRepository.Add(user);
 
-        var token = _jwtTokenGenerator.GenerateToken(user.Id, firstName, lastName, Role.Requester);
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(
             user,

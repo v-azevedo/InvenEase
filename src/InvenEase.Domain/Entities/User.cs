@@ -1,4 +1,4 @@
-using InvenEase.Domain.Common;
+using InvenEase.Domain.Common.Enums;
 
 namespace InvenEase.Domain.Entities;
 
