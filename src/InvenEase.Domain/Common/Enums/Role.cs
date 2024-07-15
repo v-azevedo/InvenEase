@@ -1,4 +1,4 @@
-namespace InvenEase.Domain.Common;
+namespace InvenEase.Domain.Common.Enums;
 
 public enum Role
 {
