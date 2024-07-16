@@ -5,7 +5,7 @@ using InvenEase.Application.Authentication.Commands.Register;
 using InvenEase.Application.Authentication.Common;
 using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Contracts.Authentication;
-using InvenEase.Domain.Entities;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,14 +14,16 @@ namespace InvenEase.Api.UnitTests.Controllers;
 public class AuthenticationControllerTests
 {
     private readonly ISender _mediator;
+    private readonly IMapper _mapper;
     private readonly AuthenticationController _controller;
 
     public AuthenticationControllerTests()
     {
         _mediator = A.Fake<ISender>();
+        _mapper = A.Fake<IMapper>();
 
         // SUT
-        _controller = new AuthenticationController(_mediator);
+        _controller = new AuthenticationController(_mediator, _mapper);
     }
 
     [Fact]
@@ -30,7 +32,7 @@ public class AuthenticationControllerTests
         // Arrange
         var request = A.Fake<RegisterRequest>();
         A.CallTo(() => _mediator.Send(A<RegisterCommand>._, default))
-            .Returns(new AuthenticationResult(new User { }, Token: ""));
+            .Returns(A.Fake<AuthenticationResult>());
 
         // Act
         var result = await _controller.Register(request);
@@ -45,7 +47,7 @@ public class AuthenticationControllerTests
         // Arrange
         var request = A.Fake<LoginRequest>();
         A.CallTo(() => _mediator.Send(A<LoginQuery>._, default))
-            .Returns(new AuthenticationResult(new User { }, Token: ""));
+            .Returns(A.Fake<AuthenticationResult>());
 
         // Act
         var result = await _controller.Login(request);
