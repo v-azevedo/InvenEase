@@ -7,7 +7,7 @@ using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Domain.Common.Errors;
 using InvenEase.Domain.Entities;
 
-namespace InvenEase.Application.UnitTests.Authentication.Commands;
+namespace InvenEase.Application.UnitTests.Authentication.Commands.Register;
 
 public class RegisterCommandHandlerTests
 {

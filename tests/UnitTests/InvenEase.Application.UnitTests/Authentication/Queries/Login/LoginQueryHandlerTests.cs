@@ -7,7 +7,7 @@ using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Domain.Common.Errors;
 using InvenEase.Domain.Entities;
 
-namespace InvenEase.Application.UnitTests.Authentication.Queries;
+namespace InvenEase.Application.UnitTests.Authentication.Queries.Login;
 
 public class LoginQueryHandlerTests
 {
