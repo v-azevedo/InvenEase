@@ -1,57 +1,43 @@
 using ErrorOr;
-using InvenEase.Application.Services.Authentication;
+using InvenEase.Application.Authentication.Commands.Register;
+using InvenEase.Application.Authentication.Common;
+using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Contracts.Authentication;
+using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.Controllers;
 
 [Route("auth")]
-public class AuthenticationController : ApiController
+public class AuthenticationController(ISender mediator, IMapper mapper) : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
-
-    public AuthenticationController(IAuthenticationService authenticationService)
-    {
-        _authenticationService = authenticationService;
-    }
+    private readonly ISender _mediator = mediator;
+    private readonly IMapper _mapper = mapper;
 
     [HttpPost("register")]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            request.Password);
+        var command = _mapper.Map<RegisterCommand>(request);
+
+        ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
 
         return authResult.Match(
-            authResult => Ok(MapAuthenticationResult(authResult)),
+            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
             errors => Problem(errors)
         );
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationService.Login(
-            request.Email,
-            request.Password);
+        var query = _mapper.Map<LoginQuery>(request);
+
+        ErrorOr<AuthenticationResult> authResult = await _mediator.Send(query);
 
         return authResult.Match(
-             authResult => Ok(MapAuthenticationResult(authResult)),
+             authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
              errors => Problem(errors)
          );
     }
-
-    private static AuthenticationResponse MapAuthenticationResult(AuthenticationResult authResult)
-    {
-        return new AuthenticationResponse(
-            authResult.User.Id,
-            authResult.User.FirstName,
-            authResult.User.LastName,
-            authResult.User.Email,
-            authResult.User.Role.ToString(),
-            authResult.Token);
-    }
-
 }
