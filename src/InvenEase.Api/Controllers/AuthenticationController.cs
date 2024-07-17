@@ -5,11 +5,13 @@ using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Contracts.Authentication;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.Controllers;
 
 [Route("auth")]
+[AllowAnonymous]
 public class AuthenticationController(ISender mediator, IMapper mapper) : ApiController
 {
     private readonly ISender _mediator = mediator;
