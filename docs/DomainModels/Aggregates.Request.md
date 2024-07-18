@@ -14,27 +14,27 @@ class Request
 
 ```json
 {
-    "id": "000000000-0000-0000-0000-000000000000",
+    "id": {"value": "000000000-0000-0000-0000-000000000000"},
     "description": "This request is for testing purposes, will be returned after the test.",
-    "status": "pending",
+    "status": "pending", // pending, waiting, delivered, canceled, closed
     "urgency": "low",
     "objects": [
         {
-            "objectId": "000000000-0000-0000-0000-000000000000",
+            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 1,
         },
         {
-            "objectId": "000000000-0000-0000-0000-000000000000",
+            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 2,
         }
     ],
+    "orderIds": [
+        {"value": "000000000-0000-0000-0000-000000000000"},
+        {"value": "000000000-0000-0000-0000-000000000000"}
+    ],
+    "requesterId": {"value": "000000000-0000-0000-0000-000000000000"},
+    "stockistId": {"value": "000000000-0000-0000-0000-000000000000"},  
     "createdDateTime": "2021-01-01T00:00:00Z",
     "updatedDateTime": "2021-01-01T00:00:00Z",
-    "orderIds": [
-        "000000000-0000-0000-0000-000000000000",
-        "000000000-0000-0000-0000-000000000000"
-    ],
-    "requesterId": "000000000-0000-0000-0000-000000000000",
-    "stockistId": "000000000-0000-0000-0000-000000000000",  
 }
 ```
