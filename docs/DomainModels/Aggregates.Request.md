@@ -6,9 +6,9 @@
 class Request 
 {
     Request Create();
-    Request Update();
-    Request Cancel();
-    
+    void Update();
+    void Cancel();
+    void Delete();
 }
 ```
 
