@@ -1,4 +1,3 @@
-
 using InvenEase.Domain.Common.Models;
 
 namespace InvenEase.Domain.Object.Entities;
@@ -22,7 +21,6 @@ public sealed class Dimensions : ValueObject
     {
         return new Dimensions(length, width, height, weight);
     }
-
 
     public override IEnumerable<object> GetEqualityComponents()
     {

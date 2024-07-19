@@ -7,5 +7,5 @@ public enum Status
     Cancelled,
     Approved,
     Rejected,
-    Completed
+    Completed,
 }

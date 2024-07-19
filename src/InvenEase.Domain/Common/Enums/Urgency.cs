@@ -4,5 +4,5 @@ public enum Urgency
 {
     Low,
     Medium,
-    High
+    High,
 }

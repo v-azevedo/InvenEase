@@ -1,5 +1,7 @@
 using FakeItEasy;
+
 using FluentAssertions;
+
 using InvenEase.Application.Authentication.Common;
 using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Application.Common.Interfaces.Authentication;
@@ -55,10 +57,10 @@ public class LoginQueryHandlerTests
         {
             return new User
             {
-                FirstName = "",
-                LastName = "",
-                Email = "",
-                Password = ""
+                FirstName = string.Empty,
+                LastName = string.Empty,
+                Email = string.Empty,
+                Password = string.Empty,
             };
         }
     }
