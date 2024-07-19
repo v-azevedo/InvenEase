@@ -1,10 +1,12 @@
 using System.Text;
+
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Common.Interfaces.Services;
 using InvenEase.Infrastructure.Authentication;
 using InvenEase.Infrastructure.Persistence;
 using InvenEase.Infrastructure.Services;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +46,7 @@ public static class DependencyInjection
                 ValidIssuer = jwtSettings.Issuer,
                 ValidAudience = jwtSettings.Audience,
                 IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                    Encoding.UTF8.GetBytes(jwtSettings.Secret)),
             });
 
         return services;

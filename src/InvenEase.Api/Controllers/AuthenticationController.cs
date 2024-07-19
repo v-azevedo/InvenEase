@@ -1,10 +1,14 @@
 using ErrorOr;
+
 using InvenEase.Application.Authentication.Commands.Register;
 using InvenEase.Application.Authentication.Common;
 using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Contracts.Authentication;
+
 using MapsterMapper;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,8 +30,7 @@ public class AuthenticationController(ISender mediator, IMapper mapper) : ApiCon
 
         return authResult.Match(
             authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
-            errors => Problem(errors)
-        );
+            errors => Problem(errors));
     }
 
     [HttpPost("login")]
@@ -39,7 +42,6 @@ public class AuthenticationController(ISender mediator, IMapper mapper) : ApiCon
 
         return authResult.Match(
              authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
-             errors => Problem(errors)
-         );
+             errors => Problem(errors));
     }
 }

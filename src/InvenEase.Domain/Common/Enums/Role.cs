@@ -5,5 +5,5 @@ public enum Role
     Requester,
     Stockist,
     Manager,
-    Administrator
+    Administrator,
 }

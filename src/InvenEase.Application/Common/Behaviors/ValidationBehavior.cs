@@ -1,5 +1,7 @@
 using ErrorOr;
+
 using FluentValidation;
+
 using MediatR;
 
 namespace InvenEase.Application.Common.Behaviors;
@@ -8,7 +10,6 @@ public class ValidationBehavior<TRequest, TResponse>(
     IValidator<TRequest>? validator = null) : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
         where TResponse : IErrorOr
-
 {
     private readonly IValidator<TRequest>? _validator = validator;
 

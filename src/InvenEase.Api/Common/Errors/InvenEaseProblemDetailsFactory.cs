@@ -1,6 +1,9 @@
 using System.Diagnostics;
+
 using ErrorOr;
+
 using InvenEase.Api.Common.Http;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -27,7 +30,7 @@ public class InvenEaseProblemDetailsFactory : ProblemDetailsFactory
             Title = title,
             Type = type,
             Detail = detail,
-            Instance = instance
+            Instance = instance,
         };
 
         ApplyProblemDetailsDefaults(httpContext, problemDetails, statusCode.Value);
@@ -49,7 +52,7 @@ public class InvenEaseProblemDetailsFactory : ProblemDetailsFactory
             Status = statusCode,
             Type = type,
             Detail = detail,
-            Instance = instance
+            Instance = instance,
         };
 
         if (title != null)
