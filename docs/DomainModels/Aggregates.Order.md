@@ -15,26 +15,27 @@ class Order
 
 ```json
 {
-    "id": "000000000-0000-0000-0000-000000000000",
+    "id": {"value": "000000000-0000-0000-0000-000000000000"},
     "description": "Order necessary for the functioning of the administration department.",
-    "status": "pending",
+    "status": "pending", // pending, approved, ongoing, canceled, completed
     "approved": false,
     "invoice": "something.pdf",
-    "urgency": "low",
+    "deliveryNote": "somethingElse.pdf",
+    "urgency": "low", // low, medium, high
     "objects": [
         {
-            "objectId": "000000000-0000-0000-0000-000000000000",
+            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 1,
         },
         {
-            "objectId": "000000000-0000-0000-0000-000000000000",
+            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 2,
         }
     ],
+    "requestId": {"value": "000000000-0000-0000-0000-000000000000"},
+    "stockistId": {"value": "000000000-0000-0000-0000-000000000000"},
+    "managerId": {"value": "000000000-0000-0000-0000-000000000000"},
     "createdDateTime": "2021-01-01T00:00:00Z",
     "updatedDateTime": "2021-01-01T00:00:00Z",
-    "requestId": "000000000-0000-0000-0000-000000000000",
-    "stockistId": "000000000-0000-0000-0000-000000000000",
-    "managerId": "000000000-0000-0000-0000-000000000000",
 }
 ```
