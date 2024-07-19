@@ -12,6 +12,7 @@
     "name": "Object",
     "description": "Object description",
     "code": "000000",
+    "image": "photo.jpg",
     "dimensions": {
         "length": 0,
         "width": 0,
