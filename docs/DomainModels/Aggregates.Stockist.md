@@ -7,7 +7,7 @@ class Stockist
 {
     Stockist Create();
     void Update();
-    void Delete();
+    void Remove();
 }
 ```
 

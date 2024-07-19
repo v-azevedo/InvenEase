@@ -16,7 +16,8 @@ class Request
 {
     "id": {"value": "000000000-0000-0000-0000-000000000000"},
     "description": "This request is for testing purposes, will be returned after the test.",
-    "status": "pending", // pending, waiting, delivered, canceled, closed
+    "status": "pending", // pending, ongoing, delivered, canceled, closed
+    "requesterDelivered": false,
     "urgency": "low",
     "objects": [
         {

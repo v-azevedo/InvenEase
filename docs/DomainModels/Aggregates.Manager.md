@@ -3,7 +3,11 @@
 ## Manager
 
 ```c#
-
+class Manager {
+    Manager Create();
+    void Update();
+    void Remove();
+}
 ```
 
 ```json

@@ -3,7 +3,12 @@
 ## Requester
 
 ```c#
-
+class Requester 
+{
+    Requester Create();
+    void Update();
+    void Remove();
+}
 ```
 
 ```json

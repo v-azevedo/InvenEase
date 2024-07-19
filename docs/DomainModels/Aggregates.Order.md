@@ -17,9 +17,10 @@ class Order
 {
     "id": {"value": "000000000-0000-0000-0000-000000000000"},
     "description": "Order necessary for the functioning of the administration department.",
-    "status": "pending", // pending, approved, ongoing, canceled, completed, closed
+    "status": "pending", // pending, approved, ongoing, canceled, completed
     "approved": false,
     "invoice": "something.pdf",
+    "deliveryNote": "somethingElse.pdf",
     "urgency": "low", // low, medium, high
     "objects": [
         {
