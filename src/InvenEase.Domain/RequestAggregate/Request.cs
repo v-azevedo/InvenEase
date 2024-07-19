@@ -3,7 +3,7 @@ using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.Request.Entities;
 using InvenEase.Domain.Request.ValueObjects;
 
-namespace InvenEase.Domain.Request;
+namespace InvenEase.Domain.RequestAggregate;
 
 public sealed class Request : AggregateRoot<RequestId>
 {

@@ -2,7 +2,7 @@ using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.Request.ValueObjects;
 
-namespace InvenEase.Domain.Manager;
+namespace InvenEase.Domain.ManagerAggregate;
 
 public sealed class Manager : AggregateRoot<ManagerId>
 {
