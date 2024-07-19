@@ -11,7 +11,7 @@
 ### Create
 
 ```javascript
-POST /object
+POST /objects
 ```
 
 #### Create Request
@@ -21,7 +21,7 @@ POST /object
   "name": "Object",
   "description": "Object description",
   "code": "000000",
-  "image": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
+  "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
   "dimensions": {
     "length": 10,
     "width": 10,
@@ -45,7 +45,7 @@ POST /object
   "name": "Object",
   "description": "Object description",
   "code": "000000",
-  "image": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
+  "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
   "dimensions": {
       "length": 10,
       "width": 10,
