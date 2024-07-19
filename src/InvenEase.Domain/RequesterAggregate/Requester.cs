@@ -2,7 +2,7 @@ using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.Request.ValueObjects;
 
-namespace InvenEase.Domain.Requester;
+namespace InvenEase.Domain.RequesterAggregate;
 
 public sealed class Requester : AggregateRoot<RequesterId>
 {

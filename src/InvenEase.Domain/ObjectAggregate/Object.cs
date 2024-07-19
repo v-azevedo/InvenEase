@@ -2,7 +2,7 @@ using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.Object.Entities;
 using InvenEase.Domain.Request.ValueObjects;
 
-namespace InvenEase.Domain.Object;
+namespace InvenEase.Domain.ObjectAggregate;
 
 public sealed class Object : AggregateRoot<ObjectId>
 {

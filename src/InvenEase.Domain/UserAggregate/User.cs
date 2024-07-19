@@ -1,7 +1,7 @@
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.Request.ValueObjects;
 
-namespace InvenEase.Domain.User;
+namespace InvenEase.Domain.UserAggregate;
 
 public sealed class User : AggregateRoot<UserId>
 {
