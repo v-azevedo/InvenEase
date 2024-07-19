@@ -11,10 +11,12 @@ public sealed class Object : AggregateRoot<ObjectId>
     public string Name { get; }
     public string Description { get; }
     public string Code { get; }
-    public string Image { get; }
+    public string ImageUrl { get; }
     public Dimensions Dimensions { get; }
     public int Quantity { get; }
     public int MinimumQuantity { get; }
+    public IReadOnlyList<RequestId> RequestIds => _requestsList;
+    public IReadOnlyList<OrderId> OrderIds => _ordersList;
     public DateTime CreatedDateTime { get; }
     public DateTime UpdatedDateTime { get; }
 
@@ -23,7 +25,7 @@ public sealed class Object : AggregateRoot<ObjectId>
         string name,
         string description,
         string code,
-        string image,
+        string imageUrl,
         Dimensions dimensions,
         int quantity,
         int minimumQuantity,
@@ -33,7 +35,7 @@ public sealed class Object : AggregateRoot<ObjectId>
         Name = name;
         Description = description;
         Code = code;
-        Image = image;
+        ImageUrl = imageUrl;
         Dimensions = dimensions;
         Quantity = quantity;
         MinimumQuantity = minimumQuantity;
@@ -45,7 +47,7 @@ public sealed class Object : AggregateRoot<ObjectId>
         string name,
         string description,
         string code,
-        string image,
+        string imageUrl,
         Dimensions dimensions,
         int quantity,
         int minimumQuantity)
@@ -55,7 +57,7 @@ public sealed class Object : AggregateRoot<ObjectId>
             name,
             description,
             code,
-            image,
+            imageUrl,
             dimensions,
             quantity,
             minimumQuantity,
