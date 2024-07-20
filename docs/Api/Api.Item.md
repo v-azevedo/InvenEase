@@ -1,25 +1,25 @@
 # InvenEase - Storage Manager API
 
 - [InvenEase - Storage Manager API](#invenease---storage-manager-api)
-  - [Object](#object)
+  - [Item](#item)
     - [Create](#create)
       - [Create Request](#create-request)
       - [Create Response](#create-response)
 
-## Object
+## Item
 
 ### Create
 
 ```javascript
-POST /objects
+POST /items
 ```
 
 #### Create Request
 
 ```json
 {
-  "name": "Object",
-  "description": "Object description",
+  "name": "Item",
+  "description": "Item description",
   "code": "000000",
   "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
   "dimensions": {
@@ -42,8 +42,8 @@ POST /objects
 ```json
 {
   "id": "000000000-0000-0000-0000-000000000000",
-  "name": "Object",
-  "description": "Object description",
+  "name": "Item",
+  "description": "Item description",
   "code": "000000",
   "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
   "dimensions": {
