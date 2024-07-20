@@ -9,11 +9,11 @@ namespace InvenEase.Domain.OrderAggregate;
 
 public sealed class Order : AggregateRoot<OrderId>
 {
-    private readonly List<OrderObjectId> _objectsList = [];
+    private readonly List<OrderItemId> _itemsList = [];
     public string Description { get; }
     public Status Status { get; }
-    public IReadOnlyList<OrderObjectId> ObjectsList =>
-        _objectsList.AsReadOnly();
+    public IReadOnlyList<OrderItemId> ItemsList =>
+        _itemsList.AsReadOnly();
     public Urgency Urgency { get; }
     public bool Approved { get; }
     public string Invoice { get; }

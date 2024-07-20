@@ -22,13 +22,13 @@ class Order
     "invoice": "something.pdf",
     "deliveryNote": "somethingElse.pdf",
     "urgency": "low", // low, medium, high
-    "objects": [
+    "items": [
         {
-            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
+            "itemId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 1,
         },
         {
-            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
+            "itemId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 2,
         }
     ],

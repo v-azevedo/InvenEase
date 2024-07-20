@@ -1,0 +1,21 @@
+@host=https://localhost:7238
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzOGE2OGEzMi1mMGRjLTRhZjctOGQ2NS0yOWE2MWRjZWMxNDEiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwianRpIjoiNDZlYjQ4YjAtN2RjYS00Mjk0LThlZjgtZGY4YTAzYmE5OTdmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUmVxdWVzdGVyIiwiZXhwIjoxNzIxNDE4OTA0LCJpc3MiOiJJbnZlbkVhc2UiLCJhdWQiOiJJbnZlbkVhc2UifQ.UsDOrFcXIFL3nAYxg_zHDp4wCf_bF-brLSsKX8ylp0k
+
+POST {{host}}/items
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Item",
+  "description": "Item description",
+  "code": "000000",
+  "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
+  "dimensions": {
+    "length": 10,
+    "width": 10,
+    "height": 2,
+    "weight": 5
+  },
+  "quantity": 8,
+  "minimumQuantity": 5
+}

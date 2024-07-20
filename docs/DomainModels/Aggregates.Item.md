@@ -1,6 +1,6 @@
 # Domain Models
 
-## Object
+## Item
 
 ```c#
 
@@ -9,8 +9,8 @@
 ```json
 {
     "id": {"value": "000000000-0000-0000-0000-000000000000"},
-    "name": "Object",
-    "description": "Object description",
+    "name": "Item",
+    "description": "Item description",
     "code": "000000",
     "image": "photo.jpg",
     "dimensions": {

@@ -10,15 +10,15 @@ namespace InvenEase.Domain.RequestAggregate;
 
 public sealed class Request : AggregateRoot<RequestId>
 {
-    private readonly List<RequestObject> _objectsList = [];
+    private readonly List<RequestItem> _itemsList = [];
     private readonly List<OrderId> _ordersList = [];
 
     public string Description { get; }
     public Status Status { get; }
     public Urgency Urgency { get; }
     public bool RequesterDelivered { get; }
-    public IReadOnlyList<RequestObject> ObjectsList =>
-        _objectsList.AsReadOnly();
+    public IReadOnlyList<RequestItem> ItemsList =>
+        _itemsList.AsReadOnly();
     public IReadOnlyList<OrderId> OrdersList =>
         _ordersList.AsReadOnly();
     public RequesterId RequesterId { get; }

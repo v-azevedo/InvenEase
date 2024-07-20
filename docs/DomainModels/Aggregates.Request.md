@@ -19,13 +19,13 @@ class Request
     "status": "pending", // pending, ongoing, delivered, canceled, closed
     "requesterDelivered": false,
     "urgency": "low",
-    "objectsList": [
+    "itemsList": [
         {
-            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
+            "itemId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 1,
         },
         {
-            "objectId": {"value": "000000000-0000-0000-0000-000000000000"},
+            "itemId": {"value": "000000000-0000-0000-0000-000000000000"},
             "quantity": 2,
         }
     ],
