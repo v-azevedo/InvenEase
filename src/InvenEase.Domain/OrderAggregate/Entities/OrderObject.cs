@@ -1,7 +1,7 @@
 using InvenEase.Domain.Common.Models;
-using InvenEase.Domain.Request.ValueObjects;
+using InvenEase.Domain.OrderAggregate.ValueObjects;
 
-namespace InvenEase.Domain.Request.Entities;
+namespace InvenEase.Domain.OrderAggregate.Entities;
 
 public sealed class OrderObject : Entity<OrderObjectId>
 {

@@ -1,7 +1,7 @@
 using InvenEase.Domain.Common.Models;
-using InvenEase.Domain.Request.ValueObjects;
+using InvenEase.Domain.RequestAggregate.ValueObjects;
 
-namespace InvenEase.Domain.Request.Entities;
+namespace InvenEase.Domain.RequestAggregate.Entities;
 
 public sealed class RequestObject : Entity<RequestObjectId>
 {
