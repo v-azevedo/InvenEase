@@ -1,6 +1,9 @@
 using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
-using InvenEase.Domain.Request.ValueObjects;
+using InvenEase.Domain.ManagerAggregate.ValueObjects;
+using InvenEase.Domain.OrderAggregate.ValueObjects;
+using InvenEase.Domain.RequestAggregate.ValueObjects;
+using InvenEase.Domain.UserAggregate.ValueObjects;
 
 namespace InvenEase.Domain.ManagerAggregate;
 

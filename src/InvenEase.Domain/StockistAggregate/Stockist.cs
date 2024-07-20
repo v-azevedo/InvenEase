@@ -1,6 +1,8 @@
 using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
-using InvenEase.Domain.Request.ValueObjects;
+using InvenEase.Domain.RequestAggregate.ValueObjects;
+using InvenEase.Domain.StockistAggregate.ValueObjects;
+using InvenEase.Domain.UserAggregate.ValueObjects;
 
 namespace InvenEase.Domain.StockistAggregate;
 

@@ -1,5 +1,5 @@
 using InvenEase.Domain.Common.Models;
-using InvenEase.Domain.Request.ValueObjects;
+using InvenEase.Domain.UserAggregate.ValueObjects;
 
 namespace InvenEase.Domain.UserAggregate;
 

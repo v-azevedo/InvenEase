@@ -1,6 +1,6 @@
 using InvenEase.Domain.Common.Models;
 
-namespace InvenEase.Domain.Request.ValueObjects;
+namespace InvenEase.Domain.RequestAggregate.ValueObjects;
 
 public sealed class RequestObjectId : ValueObject
 {

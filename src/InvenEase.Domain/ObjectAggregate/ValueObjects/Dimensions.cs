@@ -1,6 +1,6 @@
 using InvenEase.Domain.Common.Models;
 
-namespace InvenEase.Domain.Object.Entities;
+namespace InvenEase.Domain.ObjectAggregate.ValueObjects;
 
 public sealed class Dimensions : ValueObject
 {

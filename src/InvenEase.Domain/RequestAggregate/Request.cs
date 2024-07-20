@@ -1,7 +1,10 @@
 using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
-using InvenEase.Domain.Request.Entities;
-using InvenEase.Domain.Request.ValueObjects;
+using InvenEase.Domain.OrderAggregate.ValueObjects;
+using InvenEase.Domain.RequestAggregate.Entities;
+using InvenEase.Domain.RequestAggregate.ValueObjects;
+using InvenEase.Domain.RequesterAggregate.ValueObjects;
+using InvenEase.Domain.StockistAggregate.ValueObjects;
 
 namespace InvenEase.Domain.RequestAggregate;
 
