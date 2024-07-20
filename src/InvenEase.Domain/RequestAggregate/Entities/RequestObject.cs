@@ -3,21 +3,21 @@ using InvenEase.Domain.RequestAggregate.ValueObjects;
 
 namespace InvenEase.Domain.RequestAggregate.Entities;
 
-public sealed class RequestObject : Entity<RequestObjectId>
+public sealed class RequestItem : Entity<RequestItemId>
 {
     public int Quantity { get; }
 
-    public RequestObject(
-        RequestObjectId id,
+    public RequestItem(
+        RequestItemId id,
         int quantity) : base(id)
     {
         Quantity = quantity;
     }
 
-    public static RequestObject Create(int quantity)
+    public static RequestItem Create(int quantity)
     {
-        return new RequestObject(
-            RequestObjectId.CreateUnique(),
+        return new RequestItem(
+            RequestItemId.CreateUnique(),
             quantity);
     }
 }

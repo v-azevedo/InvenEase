@@ -1,17 +1,17 @@
 using InvenEase.Domain.Common.Models;
 
-namespace InvenEase.Domain.OrderAggregate.ValueObjects;
+namespace InvenEase.Domain.ItemAggregate.ValueObjects;
 
-public sealed class OrderObjectId : ValueObject
+public sealed class ItemId : ValueObject
 {
     public Guid Value { get; }
 
-    private OrderObjectId(Guid value)
+    private ItemId(Guid value)
     {
         Value = value;
     }
 
-    public static OrderObjectId CreateUnique()
+    public static ItemId CreateUnique()
     {
         return new(Guid.NewGuid());
     }

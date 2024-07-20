@@ -1,11 +1,12 @@
 using InvenEase.Domain.Common.Models;
+using InvenEase.Domain.ItemAggregate.ValueObjects;
 using InvenEase.Domain.ObjectAggregate.ValueObjects;
 using InvenEase.Domain.OrderAggregate.ValueObjects;
 using InvenEase.Domain.RequestAggregate.ValueObjects;
 
-namespace InvenEase.Domain.ObjectAggregate;
+namespace InvenEase.Domain.ItemAggregate;
 
-public sealed class Object : AggregateRoot<ObjectId>
+public sealed class Item : AggregateRoot<ItemId>
 {
     private readonly List<RequestId> _requestsList = [];
     private readonly List<OrderId> _ordersList = [];
@@ -21,8 +22,8 @@ public sealed class Object : AggregateRoot<ObjectId>
     public DateTime CreatedDateTime { get; }
     public DateTime UpdatedDateTime { get; }
 
-    private Object(
-        ObjectId id,
+    private Item(
+        ItemId id,
         string name,
         string description,
         string code,
@@ -44,7 +45,7 @@ public sealed class Object : AggregateRoot<ObjectId>
         UpdatedDateTime = updatedDateTime;
     }
 
-    public static Object Create(
+    public static Item Create(
         string name,
         string description,
         string code,
@@ -53,8 +54,8 @@ public sealed class Object : AggregateRoot<ObjectId>
         int quantity,
         int minimumQuantity)
     {
-        return new Object(
-            ObjectId.CreateUnique(),
+        return new Item(
+            ItemId.CreateUnique(),
             name,
             description,
             code,
