@@ -17,18 +17,29 @@ namespace InvenEase.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddAuth(configuration);
+        services
+            .AddAuth(configuration)
+            .AddPersistence();
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
-        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
 
-    public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistence(
+        this IServiceCollection services)
+    {
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IItemRepository, ItemRepository>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddAuth(
+        this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSettings = new JwtSettings();
         configuration.Bind(JwtSettings.SectionName, jwtSettings);
