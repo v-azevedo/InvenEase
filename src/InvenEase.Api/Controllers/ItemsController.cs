@@ -5,6 +5,8 @@ using MapsterMapper;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenEase.Api.Controllers;
@@ -16,6 +18,7 @@ public class ItemsController(IMapper mapper, ISender mediator) : ApiController
     private readonly ISender _mediator = mediator;
 
     [HttpPost]
+    [Authorize("Manager")]
     public async Task<IActionResult> CreateItem(CreateItemRequest request)
     {
         var command = _mapper.Map<CreateItemCommand>(request);
