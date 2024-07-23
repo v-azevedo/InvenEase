@@ -10,21 +10,21 @@ namespace InvenEase.Domain.RequestAggregate;
 
 public sealed class Request : AggregateRoot<RequestId>
 {
-    private readonly List<RequestItem> _itemsList = [];
-    private readonly List<OrderId> _ordersList = [];
+    private readonly List<RequestItem> _requestItems = [];
+    private readonly List<OrderId> _orderIds = [];
 
-    public string Description { get; }
-    public Status Status { get; }
-    public Urgency Urgency { get; }
-    public bool RequesterDelivered { get; }
-    public IReadOnlyList<RequestItem> ItemsList =>
-        _itemsList.AsReadOnly();
-    public IReadOnlyList<OrderId> OrdersList =>
-        _ordersList.AsReadOnly();
-    public RequesterId RequesterId { get; }
-    public StockistId StockistId { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string Description { get; private set; }
+    public Status Status { get; private set; }
+    public Urgency Urgency { get; private set; }
+    public bool RequesterDelivered { get; private set; }
+    public IReadOnlyList<RequestItem> RequestItems =>
+        _requestItems.AsReadOnly();
+    public IReadOnlyList<OrderId> OrderIds =>
+        _orderIds.AsReadOnly();
+    public RequesterId RequesterId { get; private set; }
+    public StockistId StockistId { get; private set; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Request(
         RequestId id,
@@ -59,5 +59,10 @@ public sealed class Request : AggregateRoot<RequestId>
             stockistId,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+
+#pragma warning disable CS8618
+    private Request()
+    {
     }
 }

@@ -8,17 +8,17 @@ namespace InvenEase.Domain.RequesterAggregate;
 
 public sealed class Requester : AggregateRoot<RequesterId>
 {
-    private readonly List<RequestId> _requestsList = [];
+    private readonly List<RequestId> _requestIds = [];
 
-    public string FirstName { get; }
-    public string LastName { get; }
-    public Role Role { get; }
-    public string ProfileImage { get; }
-    public UserId UserId { get; }
-    public IReadOnlyList<RequestId> RequestsList =>
-        _requestsList.AsReadOnly();
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public Role Role { get; private set; }
+    public string ProfileImage { get; private set; }
+    public UserId UserId { get; private set; }
+    public IReadOnlyList<RequestId> RequestIds =>
+        _requestIds.AsReadOnly();
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Requester(
         RequesterId id,
@@ -50,5 +50,10 @@ public sealed class Requester : AggregateRoot<RequesterId>
             userId,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+
+#pragma warning disable CS8618
+    private Requester()
+    {
     }
 }

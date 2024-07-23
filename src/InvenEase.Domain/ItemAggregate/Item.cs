@@ -8,19 +8,20 @@ namespace InvenEase.Domain.ItemAggregate;
 
 public sealed class Item : AggregateRoot<ItemId>
 {
-    private readonly List<RequestId> _requestsList = [];
-    private readonly List<OrderId> _ordersList = [];
-    public string Name { get; }
-    public string Description { get; }
-    public string Code { get; }
-    public string ImageUrl { get; }
-    public Dimensions Dimensions { get; }
-    public int Quantity { get; }
-    public int MinimumQuantity { get; }
-    public IReadOnlyList<RequestId> RequestIds => _requestsList;
-    public IReadOnlyList<OrderId> OrderIds => _ordersList;
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    private readonly List<RequestId> _requestIds = [];
+    private readonly List<OrderId> _orderIds = [];
+
+    public string Name { get; private set; }
+    public string Description { get; private set; }
+    public string Code { get; private set; }
+    public string ImageUrl { get; private set; }
+    public Dimensions Dimensions { get; private set; }
+    public int Quantity { get; private set; }
+    public int MinimumQuantity { get; private set; }
+    public IReadOnlyList<RequestId> RequestIds => _requestIds;
+    public IReadOnlyList<OrderId> OrderIds => _orderIds;
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Item(
         ItemId id,
@@ -65,5 +66,10 @@ public sealed class Item : AggregateRoot<ItemId>
             minimumQuantity,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+
+#pragma warning disable CS8618
+    private Item()
+    {
     }
 }
