@@ -1,7 +1,9 @@
 using FakeItEasy;
+
 using FluentAssertions;
+
 using InvenEase.Domain.Entities;
-using InvenEase.Infrastructure.Persistence;
+using InvenEase.Infrastructure.Persistence.Repositories;
 
 namespace InvenEase.Infrastructure.UnitTests.Persistence;
 
