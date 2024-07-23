@@ -5,9 +5,11 @@ using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Common.Interfaces.Services;
 using InvenEase.Infrastructure.Authentication;
 using InvenEase.Infrastructure.Persistence;
+using InvenEase.Infrastructure.Persistence.Repositories;
 using InvenEase.Infrastructure.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -22,7 +24,7 @@ public static class DependencyInjection
     {
         services
             .AddAuth(configuration)
-            .AddPersistence();
+            .AddPersistence(configuration);
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
@@ -30,8 +32,14 @@ public static class DependencyInjection
     }
 
     public static IServiceCollection AddPersistence(
-        this IServiceCollection services)
+        this IServiceCollection services, IConfiguration configuration)
     {
+        var postgresSettings = new PostgresSettings();
+        configuration.Bind(PostgresSettings.SectionName, postgresSettings);
+
+        services.AddSingleton(Options.Create(postgresSettings));
+        services.AddDbContext<InvenEaseDbContext>(options =>
+            options.UseNpgsql(postgresSettings.ConnectionString));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IItemRepository, ItemRepository>();
 
