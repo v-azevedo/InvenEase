@@ -68,6 +68,25 @@ public sealed class Item : AggregateRoot<ItemId>
             DateTime.UtcNow);
     }
 
+    public void Update(
+        string name,
+        string description,
+        string code,
+        string imageUrl,
+        Dimensions dimensions,
+        int quantity,
+        int minimumQuantity)
+    {
+        Name = name;
+        Description = description;
+        Code = code;
+        ImageUrl = imageUrl;
+        Dimensions = dimensions;
+        Quantity = quantity;
+        MinimumQuantity = minimumQuantity;
+        UpdatedDateTime = DateTime.UtcNow;
+    }
+
 #pragma warning disable CS8618
     private Item()
     {
