@@ -25,13 +25,13 @@ public class CreateItemCommandHandlerTests
         // Arrange
         var command = A.Fake<CreateItemCommand>();
 
-        A.CallTo(() => _itemRepository.Add(A<Item>._));
+        A.CallTo(() => _itemRepository.CreateAsync(A<Item>._, A<CancellationToken>._));
 
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
 
         // Assert
-        A.CallTo(() => _itemRepository.Add(A<Item>._)).MustHaveHappenedOnceExactly();
+        A.CallTo(() => _itemRepository.CreateAsync(A<Item>._, A<CancellationToken>._)).MustHaveHappenedOnceExactly();
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class CreateItemCommandHandlerTests
         // Arrange
         var command = A.Fake<CreateItemCommand>();
 
-        A.CallTo(() => _itemRepository.Add(A<Item>._));
+        A.CallTo(() => _itemRepository.CreateAsync(A<Item>._, A<CancellationToken>._));
 
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
