@@ -1,5 +1,7 @@
 using ErrorOr;
 
+using InvenEase.Application.Items.Commands.Common;
+
 using InvenEase.Domain.ItemAggregate;
 
 using MediatR;
@@ -15,10 +17,3 @@ public record CreateItemCommand(
     int Quantity,
     int MinimumQuantity
 ) : IRequest<ErrorOr<Item>>;
-
-public record DimensionsCommand(
-    double Length,
-    double Width,
-    double Height,
-    double Weight
-);
