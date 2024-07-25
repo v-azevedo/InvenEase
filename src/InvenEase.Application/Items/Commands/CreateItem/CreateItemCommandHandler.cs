@@ -15,26 +15,24 @@ public class CreateItemCommandHandler(
 
     public async Task<ErrorOr<Item>> Handle(CreateItemCommand request, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
         // Create Item
-        var item = Item.Create(
+        var createdItem = Item.Create(
             name: request.Name,
             description: request.Description,
             code: request.Code,
             imageUrl: request.ImageUrl,
             dimensions: Dimensions.CreateNew(
-                request.Dimensions.Length,
-                request.Dimensions.Width,
-                request.Dimensions.Height,
-                request.Dimensions.Weight),
+                length: request.Dimensions.Length,
+                width: request.Dimensions.Width,
+                height: request.Dimensions.Height,
+                weight: request.Dimensions.Weight),
             quantity: request.Quantity,
             minimumQuantity: request.MinimumQuantity);
 
         // Persist Item
-        _itemRepository.Add(item);
+        await _itemRepository.CreateAsync(createdItem, cancellationToken);
 
         // Return Item
-        return item;
+        return createdItem;
     }
 }
