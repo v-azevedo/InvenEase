@@ -9,10 +9,3 @@ public record CreateItemRequest(
     int Quantity,
     int MinimumQuantity
 );
-
-public record DimensionsRequest(
-    double Length,
-    double Width,
-    double Height,
-    double Weight
-);
