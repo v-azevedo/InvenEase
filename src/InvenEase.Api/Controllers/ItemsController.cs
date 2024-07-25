@@ -1,4 +1,5 @@
 using InvenEase.Application.Items.Commands.CreateItem;
+using InvenEase.Application.Items.Commands.UpdateItem;
 using InvenEase.Contracts.Items;
 
 using MapsterMapper;
@@ -23,6 +24,18 @@ public class ItemsController(IMapper mapper, ISender mediator) : ApiController
         var createItemResult = await _mediator.Send(command);
 
         return createItemResult.Match(
+            item => Ok(_mapper.Map<ItemResponse>(item)),
+            errors => Problem(errors));
+    }
+
+    [HttpPut("{id:Guid}")]
+    public async Task<IActionResult> UpdateItem(Guid id, UpdateItemRequest request)
+    {
+        var command = _mapper.Map<UpdateItemCommand>((request, id));
+
+        var updateItemResult = await _mediator.Send(command);
+
+        return updateItemResult.Match(
             item => Ok(_mapper.Map<ItemResponse>(item)),
             errors => Problem(errors));
     }
