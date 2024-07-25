@@ -1,5 +1,7 @@
 using InvenEase.Application.Items.Commands.CreateItem;
 using InvenEase.Application.Items.Commands.UpdateItem;
+using InvenEase.Application.Items.Queries.GetItem;
+using InvenEase.Application.Items.Queries.GetItems;
 using InvenEase.Contracts.Items;
 
 using MapsterMapper;
@@ -38,5 +40,29 @@ public class ItemsController(IMapper mapper, ISender mediator) : ApiController
         return updateItemResult.Match(
             item => Ok(_mapper.Map<ItemResponse>(item)),
             errors => Problem(errors));
+    }
+
+    [HttpGet("{id:Guid}")]
+    public async Task<IActionResult> GetItem(Guid id)
+    {
+        var query = _mapper.Map<GetItemQuery>(id);
+
+        var getItemResult = await _mediator.Send(query);
+
+        return getItemResult.Match(
+            item => Ok(_mapper.Map<ItemResponse>(item)),
+            errors => Problem(errors));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetItems()
+    {
+        var query = new GetItemsQuery();
+
+        var getItemsResult = await _mediator.Send(query);
+
+        return getItemsResult.Match(
+            items => Ok(_mapper.Map<IEnumerable<ItemResponse>>(items)),
+            Problem);
     }
 }
