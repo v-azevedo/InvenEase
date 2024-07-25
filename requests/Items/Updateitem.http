@@ -1,0 +1,22 @@
+@host=https://localhost:7238
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjhlYzU4ZC0xOGVmLTRjNTEtYmJlOS1iNzZiZDYwY2QzMjkiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwianRpIjoiZWVkNGEyMWItNmM1MC00NWJmLWIwNTMtYWY1MmUxZTZjNzEwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiUmVxdWVzdGVyIiwiZXhwIjoxNzIxOTQ4NjAzLCJpc3MiOiJJbnZlbkVhc2UiLCJhdWQiOiJJbnZlbkVhc2UifQ.r2Xal4_Iiewy-Mu5RVubqLN6MXx8kLJ0j5vD-Jrsnbk
+@itemId=dcd71441-79ef-41ee-95cc-42e6da137fa2
+
+PUT {{host}}/items/{{itemId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Updated Item",
+  "description": "Updated Item Description",
+  "code": "3291443300002",
+  "imageUrl": "",
+  "dimensions": {
+    "length": 8,
+    "width": 20,
+    "height": 10,
+    "weight": 5
+  },
+  "quantity": 8,
+  "minimumQuantity": 5
+}
