@@ -1,4 +1,5 @@
 using InvenEase.Application.Items.Commands.CreateItem;
+using InvenEase.Application.Items.Commands.DeleteItem;
 using InvenEase.Application.Items.Commands.UpdateItem;
 using InvenEase.Application.Items.Queries.GetItem;
 using InvenEase.Application.Items.Queries.GetItems;
@@ -64,5 +65,17 @@ public class ItemsController(IMapper mapper, ISender mediator) : ApiController
         return getItemsResult.Match(
             items => Ok(_mapper.Map<IEnumerable<ItemResponse>>(items)),
             Problem);
+    }
+
+    [HttpDelete("{id:Guid}")]
+    public async Task<IActionResult> DeleteItem(Guid id)
+    {
+        var command = _mapper.Map<DeleteItemCommand>(id);
+
+        var deleteItemResult = await _mediator.Send(command);
+
+        return deleteItemResult.Match(
+            _ => NoContent(),
+            errors => Problem(errors));
     }
 }
