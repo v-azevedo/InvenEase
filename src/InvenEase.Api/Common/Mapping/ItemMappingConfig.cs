@@ -1,4 +1,5 @@
 using InvenEase.Application.Items.Commands.CreateItem;
+using InvenEase.Application.Items.Commands.DeleteItem;
 using InvenEase.Application.Items.Commands.UpdateItem;
 using InvenEase.Application.Items.Queries.GetItem;
 using InvenEase.Contracts.Items;
@@ -25,6 +26,9 @@ public class ItemMappingConfig : IRegister
             .Map(dest => dest.Item, src => src.request);
 
         config.NewConfig<Guid, GetItemQuery>()
+            .Map(dest => dest.Id, src => src);
+
+        config.NewConfig<Guid, DeleteItemCommand>()
             .Map(dest => dest.Id, src => src);
     }
 }
