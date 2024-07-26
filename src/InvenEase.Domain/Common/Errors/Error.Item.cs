@@ -8,6 +8,9 @@ public static partial class Errors
     {
         public static Error NotFound => Error.NotFound(
             code: "Item.NotFound",
-            description: "No matching item found with the given Id.");
+            description: "Item not found.");
+        public static Error AlreadyIncluded(string type) => Error.Conflict(
+            code: $"Item.{type}AlreadyIncluded",
+            description: $"The {type} is already included in this item.");
     }
 }
