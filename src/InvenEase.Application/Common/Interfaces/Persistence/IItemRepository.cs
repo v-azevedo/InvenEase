@@ -10,4 +10,5 @@ public interface IItemRepository
     Task UpdateAsync(Item item, CancellationToken cancellationToken);
     Task<Item?> GetByIdAsync(ItemId id, CancellationToken cancellationToken);
     Task<List<Item>> GetAllAsync(CancellationToken cancellationToken);
+    Task DeleteAsync(Item item, CancellationToken cancellationToken);
 }

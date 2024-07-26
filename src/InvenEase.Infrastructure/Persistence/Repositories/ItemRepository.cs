@@ -31,4 +31,10 @@ public class ItemRepository(InvenEaseDbContext dbContext) : IItemRepository
     {
         return await _dbContext.Items.ToListAsync(cancellationToken);
     }
+
+    public async Task DeleteAsync(Item item, CancellationToken cancellationToken)
+    {
+        _dbContext.Remove(item);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
 }
