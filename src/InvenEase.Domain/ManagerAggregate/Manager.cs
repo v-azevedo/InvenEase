@@ -9,20 +9,20 @@ namespace InvenEase.Domain.ManagerAggregate;
 
 public sealed class Manager : AggregateRoot<ManagerId>
 {
-    private readonly List<OrderId> _ordersList = [];
-    private readonly List<RequestId> _requestsList = [];
+    private readonly List<OrderId> _ordersIds = [];
+    private readonly List<RequestId> _requestsIds = [];
 
-    public string FirstName { get; }
-    public string LastName { get; }
-    public Role Role { get; }
-    public string ProfileImage { get; }
-    public UserId UserId { get; }
-    public IReadOnlyList<OrderId> OrdersList =>
-        _ordersList.AsReadOnly();
-    public IReadOnlyList<RequestId> RequestsList =>
-        _requestsList.AsReadOnly();
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public Role Role { get; private set; }
+    public string ProfileImage { get; private set; }
+    public UserId UserId { get; private set; }
+    public IReadOnlyList<OrderId> OrderIds =>
+        _ordersIds.AsReadOnly();
+    public IReadOnlyList<RequestId> RequestIds =>
+        _requestsIds.AsReadOnly();
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Manager(
         ManagerId id,
@@ -54,5 +54,10 @@ public sealed class Manager : AggregateRoot<ManagerId>
             userId,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+
+#pragma warning disable CS8618
+    private Manager()
+    {
     }
 }

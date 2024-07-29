@@ -5,7 +5,7 @@ namespace InvenEase.Domain.RequestAggregate.Entities;
 
 public sealed class RequestItem : Entity<RequestItemId>
 {
-    public int Quantity { get; }
+    public int Quantity { get; private set; }
 
     public RequestItem(
         RequestItemId id,
@@ -19,5 +19,10 @@ public sealed class RequestItem : Entity<RequestItemId>
         return new RequestItem(
             RequestItemId.CreateUnique(),
             quantity);
+    }
+
+#pragma warning disable CS8618
+    private RequestItem()
+    {
     }
 }

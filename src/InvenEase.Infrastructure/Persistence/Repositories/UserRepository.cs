@@ -1,7 +1,7 @@
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Domain.Entities;
 
-namespace InvenEase.Infrastructure.Persistence;
+namespace InvenEase.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
