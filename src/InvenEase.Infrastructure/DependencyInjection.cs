@@ -1,10 +1,8 @@
-using System.Security.Claims;
 using System.Text;
 
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Common.Interfaces.Services;
-using InvenEase.Domain.Common.Enums;
 using InvenEase.Infrastructure.Authentication;
 using InvenEase.Infrastructure.Persistence;
 using InvenEase.Infrastructure.Services;
@@ -24,14 +22,7 @@ public static class DependencyInjection
     {
         services
             .AddAuth(configuration)
-            .AddPersistence()
-            .AddAuthorizationBuilder() // https://learn.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-8.0
-                .AddPolicy("Manager", policy =>
-                    policy.RequireClaim(ClaimTypes.Role, "Manager"))
-                .AddPolicy("Requester", policy =>
-                    policy.RequireClaim(ClaimTypes.Role, "Requester"))
-                .AddPolicy("Stockist", policy =>
-                    policy.RequireClaim(ClaimTypes.Role, "Stockist"));
+            .AddPersistence();
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
