@@ -51,7 +51,9 @@ public static class DependencyInjection
 
         services.AddSingleton(Options.Create(postgresSettings));
         services.AddDbContext<InvenEaseDbContext>(options =>
-            options.UseNpgsql(postgresSettings.ConnectionString));
+            options.UseNpgsql(
+                postgresSettings.ConnectionString,
+                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IItemRepository, ItemRepository>();
