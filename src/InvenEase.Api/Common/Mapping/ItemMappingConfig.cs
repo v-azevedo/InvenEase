@@ -29,6 +29,6 @@ public class ItemMappingConfig : IRegister
             .Map(dest => dest.Id, src => src);
 
         config.NewConfig<Guid, DeleteItemCommand>()
-            .Map(dest => dest.Id, src => src);
+            .Map(dest => dest.ItemId, src => src);
     }
 }
