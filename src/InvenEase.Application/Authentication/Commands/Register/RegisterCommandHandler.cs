@@ -14,22 +14,22 @@ namespace InvenEase.Application.Authentication.Commands.Register;
 
 public class RegisterCommandHandler(
     IUsersRepository userRepository,
-    IJwtTokenGenerator jwtTokenGenerator) : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
+    IJwtTokenGenerator jwtTokenGenerator,
+    IPasswordHasher passwordHasher)
+        : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
 {
     public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
         if (await userRepository.GetUserByEmailAsync(command.Email, cancellationToken) is not null)
         {
             return Errors.User.DuplicateEmail;
         }
 
         var user = User.Create(
-            command.FirstName,
-            command.LastName,
-            command.Email,
-            command.Password);
+            firstName: command.FirstName,
+            lastName: command.LastName,
+            email: command.Email,
+            password: passwordHasher.Hash(command.Password));
 
         await userRepository.AddAsync(user, cancellationToken);
 
