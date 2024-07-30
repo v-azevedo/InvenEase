@@ -26,6 +26,8 @@ public class LoginQueryHandlerTests
 
         A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
             .Returns(Task.FromResult(A.Dummy<User?>()));
+        A.CallTo(() => _passwordHasher.Verify(query.Password, A<string>._))
+            .Returns(true);
 
         // Act
         var result = handler.Handle(query, CancellationToken.None).Result.Value;
@@ -36,7 +38,7 @@ public class LoginQueryHandlerTests
     }
 
     [Fact]
-    public void HandleLoginQuery_WhenInvalidCredentials_ReturnError()
+    public void HandleLoginQuery_WhenInvalidEmail_ReturnError()
     {
         // Arrange
         var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
@@ -44,6 +46,27 @@ public class LoginQueryHandlerTests
 
         A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
             .Returns(Task.FromResult((User?)null));
+
+        // Act
+        var result = handler.Handle(query, CancellationToken.None).Result;
+
+        // Assert
+        result.Value.Should().BeNull();
+        result.FirstError.Should().NotBeNull();
+        result.FirstError.Should().Be(Errors.Authentication.InvalidCredentials);
+    }
+
+    [Fact]
+    public void HandleLoginQuery_WhenInvalidPassword_ReturnError()
+    {
+        // Arrange
+        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
+        var query = A.Dummy<LoginQuery>();
+
+        A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
+            .Returns(Task.FromResult((User?)null));
+        A.CallTo(() => _passwordHasher.Verify(query.Password, A<string>._))
+            .Returns(false);
 
         // Act
         var result = handler.Handle(query, CancellationToken.None).Result;
