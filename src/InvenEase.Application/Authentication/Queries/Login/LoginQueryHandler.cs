@@ -12,18 +12,18 @@ namespace InvenEase.Application.Authentication.Queries.Login;
 
 public class LoginQueryHandler(
     IUsersRepository userRepository,
-    IJwtTokenGenerator jwtTokenGenerator) : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
+    IJwtTokenGenerator jwtTokenGenerator,
+    IPasswordHasher passwordHasher)
+        : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
 {
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
         if (await userRepository.GetUserByEmailAsync(query.Email, cancellationToken) is not User user)
         {
             return Errors.Authentication.InvalidCredentials;
         }
 
-        if (user.Password != query.Password)
+        if (!passwordHasher.Verify(query.Password, user.Password))
         {
             return Errors.Authentication.InvalidCredentials;
         }
