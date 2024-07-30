@@ -1,4 +1,4 @@
-namespace InvenEase.Infrastructure.Authentication;
+namespace InvenEase.Infrastructure.Security.TokenGenerator;
 
 public class JwtSettings
 {

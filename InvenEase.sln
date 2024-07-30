@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{34FE71AA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{A0CF5B46-8A8F-466D-A829-D97BEEB715DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvenEase.Infrastructure.UnitTests", "tests\UnitTests\InvenEase.Infrastructure.UnitTests\InvenEase.Infrastructure.UnitTests.csproj", "{86F18826-ECAD-417D-B347-5AE323BFDB31}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvenEase.Domain.UnitTests", "tests\UnitTests\InvenEase.Domain.UnitTests\InvenEase.Domain.UnitTests.csproj", "{F7780494-C35E-4F49-B3D4-920D75CB3023}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvenEase.Application.UnitTests", "tests\UnitTests\InvenEase.Application.UnitTests\InvenEase.Application.UnitTests.csproj", "{726798E2-1BE7-4063-BC58-76AF604373A0}"
@@ -32,14 +30,7 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{86F18826-ECAD-417D-B347-5AE323BFDB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86F18826-ECAD-417D-B347-5AE323BFDB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86F18826-ECAD-417D-B347-5AE323BFDB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86F18826-ECAD-417D-B347-5AE323BFDB31}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7780494-C35E-4F49-B3D4-920D75CB3023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7780494-C35E-4F49-B3D4-920D75CB3023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7780494-C35E-4F49-B3D4-920D75CB3023}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,9 +64,11 @@ Global
 		{9BB97C47-8590-4838-8BAA-6291E0DDB30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BB97C47-8590-4838-8BAA-6291E0DDB30C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A0CF5B46-8A8F-466D-A829-D97BEEB715DE} = {34FE71AA-C33C-4F48-8F46-024A8B709CC8}
-		{86F18826-ECAD-417D-B347-5AE323BFDB31} = {A0CF5B46-8A8F-466D-A829-D97BEEB715DE}
 		{F7780494-C35E-4F49-B3D4-920D75CB3023} = {A0CF5B46-8A8F-466D-A829-D97BEEB715DE}
 		{726798E2-1BE7-4063-BC58-76AF604373A0} = {A0CF5B46-8A8F-466D-A829-D97BEEB715DE}
 		{394C7C27-453C-43B5-8181-2EFE4FDD4A07} = {A0CF5B46-8A8F-466D-A829-D97BEEB715DE}
