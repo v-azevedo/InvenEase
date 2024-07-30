@@ -15,12 +15,13 @@ public class RegisterCommandHandlerTests
 {
     private readonly IUsersRepository _userRepository = A.Fake<IUsersRepository>();
     private readonly IJwtTokenGenerator _jwtTokenGenerator = A.Fake<IJwtTokenGenerator>();
+    private readonly IPasswordHasher _passwordHasher = A.Fake<IPasswordHasher>();
 
     [Fact]
     public void HandleRegisterCommand_WhenValidCredentials_ReturnAuthenticationResult()
     {
         // Arrange
-        var handler = new RegisterCommandHandler(_userRepository, _jwtTokenGenerator);
+        var handler = new RegisterCommandHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
         var command = A.Dummy<RegisterCommand>();
 
         A.CallTo(() => _userRepository.GetUserByEmailAsync(command.Email, A<CancellationToken>._))
@@ -38,7 +39,7 @@ public class RegisterCommandHandlerTests
     public void HandleRegisterCommand_WhenDuplicateEmail_ReturnError()
     {
         // Arrange
-        var handler = new RegisterCommandHandler(_userRepository, _jwtTokenGenerator);
+        var handler = new RegisterCommandHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
         var command = A.Dummy<RegisterCommand>();
 
         A.CallTo(() => _userRepository.GetUserByEmailAsync(command.Email, A<CancellationToken>._))

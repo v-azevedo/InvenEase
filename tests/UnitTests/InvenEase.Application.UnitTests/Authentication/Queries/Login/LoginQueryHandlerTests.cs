@@ -15,12 +15,13 @@ public class LoginQueryHandlerTests
 {
     private readonly IUsersRepository _userRepository = A.Fake<IUsersRepository>();
     private readonly IJwtTokenGenerator _jwtTokenGenerator = A.Fake<IJwtTokenGenerator>();
+    private readonly IPasswordHasher _passwordHasher = A.Fake<IPasswordHasher>();
 
     [Fact]
     public void HandleLoginQuery_WhenValidCredentials_ReturnAuthenticationResult()
     {
         // Arrange
-        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator);
+        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
         var query = A.Dummy<LoginQuery>();
 
         A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
@@ -38,7 +39,7 @@ public class LoginQueryHandlerTests
     public void HandleLoginQuery_WhenInvalidCredentials_ReturnError()
     {
         // Arrange
-        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator);
+        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
         var query = A.Dummy<LoginQuery>();
 
         A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
