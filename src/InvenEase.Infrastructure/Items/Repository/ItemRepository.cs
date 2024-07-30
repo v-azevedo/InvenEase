@@ -1,10 +1,11 @@
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Domain.ItemAggregate;
 using InvenEase.Domain.ItemAggregate.ValueObjects;
+using InvenEase.Infrastructure.Persistence;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace InvenEase.Infrastructure.Persistence.Repositories;
+namespace InvenEase.Infrastructure.Items.Repository;
 
 public class ItemRepository(InvenEaseDbContext dbContext) : IItemRepository
 {
