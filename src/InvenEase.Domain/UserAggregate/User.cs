@@ -5,10 +5,15 @@ namespace InvenEase.Domain.UserAggregate;
 
 public sealed class User : AggregateRoot<UserId>
 {
+    private readonly List<Role> _roles = [];
+    private readonly List<Permission> _permissions = [];
+
     public string FirstName { get; }
     public string LastName { get; }
     public string Email { get; }
     public string Password { get; }
+    public IReadOnlyList<Role> Roles => _roles.AsReadOnly();
+    public IReadOnlyList<Permission> Permissions => _permissions.AsReadOnly();
     public DateTime CreatedDateTime { get; }
     public DateTime UpdatedDateTime { get; }
 
@@ -39,5 +44,16 @@ public sealed class User : AggregateRoot<UserId>
             password,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+
+    public void AddRole(Role role)
+    {
+        _roles.Add(role);
+    }
+
+#pragma warning disable CS8618
+    private User()
+    {
+        // Required by EF Core
     }
 }

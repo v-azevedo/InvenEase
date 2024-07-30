@@ -1,17 +1,15 @@
 using InvenEase.Domain.ItemAggregate;
+using InvenEase.Domain.UserAggregate;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace InvenEase.Infrastructure.Persistence;
 
-public class InvenEaseDbContext : DbContext
+public class InvenEaseDbContext(DbContextOptions<InvenEaseDbContext> options) : DbContext(options)
 {
-    public InvenEaseDbContext(DbContextOptions<InvenEaseDbContext> options) : base(options)
-    {
-    }
-
     public DbSet<Item> Items { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,4 +1,4 @@
-using InvenEase.Domain.Entities;
+using InvenEase.Domain.UserAggregate;
 
 namespace InvenEase.Application.Authentication.Common;
 

@@ -1,4 +1,3 @@
-using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.ManagerAggregate.ValueObjects;
 using InvenEase.Domain.OrderAggregate.ValueObjects;
@@ -14,7 +13,6 @@ public sealed class Manager : AggregateRoot<ManagerId>
 
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
-    public Role Role { get; private set; }
     public string ProfileImage { get; private set; }
     public UserId UserId { get; private set; }
     public IReadOnlyList<OrderId> OrderIds =>
@@ -28,7 +26,6 @@ public sealed class Manager : AggregateRoot<ManagerId>
         ManagerId id,
         string firstName,
         string lastName,
-        Role role,
         string profileImage,
         UserId userId,
         DateTime createdDateTime,
@@ -36,7 +33,6 @@ public sealed class Manager : AggregateRoot<ManagerId>
     {
         FirstName = firstName;
         LastName = lastName;
-        Role = role;
         ProfileImage = profileImage;
         UserId = userId;
         CreatedDateTime = createdDateTime;
@@ -49,7 +45,6 @@ public sealed class Manager : AggregateRoot<ManagerId>
             ManagerId.CreateUnique(),
             firstName,
             lastName,
-            Role.Manager,
             profileImage,
             userId,
             DateTime.UtcNow,

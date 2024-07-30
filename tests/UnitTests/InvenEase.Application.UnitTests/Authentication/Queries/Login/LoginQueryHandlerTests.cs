@@ -7,23 +7,27 @@ using InvenEase.Application.Authentication.Queries.Login;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Domain.Common.Errors;
-using InvenEase.Domain.Entities;
+using InvenEase.Domain.UserAggregate;
 
 namespace InvenEase.Application.UnitTests.Authentication.Queries.Login;
 
 public class LoginQueryHandlerTests
 {
-    private readonly IUserRepository _userRepository = A.Fake<IUserRepository>();
+    private readonly IUsersRepository _userRepository = A.Fake<IUsersRepository>();
     private readonly IJwtTokenGenerator _jwtTokenGenerator = A.Fake<IJwtTokenGenerator>();
+    private readonly IPasswordHasher _passwordHasher = A.Fake<IPasswordHasher>();
 
     [Fact]
     public void HandleLoginQuery_WhenValidCredentials_ReturnAuthenticationResult()
     {
         // Arrange
-        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator);
+        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
         var query = A.Dummy<LoginQuery>();
 
-        A.CallTo(() => _userRepository.GetUserByEmail(query.Email)).Returns(A.Dummy<User>());
+        A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
+            .Returns(Task.FromResult(A.Dummy<User?>()));
+        A.CallTo(() => _passwordHasher.Verify(query.Password, A<string>._))
+            .Returns(true);
 
         // Act
         var result = handler.Handle(query, CancellationToken.None).Result.Value;
@@ -34,13 +38,35 @@ public class LoginQueryHandlerTests
     }
 
     [Fact]
-    public void HandleLoginQuery_WhenInvalidCredentials_ReturnError()
+    public void HandleLoginQuery_WhenInvalidEmail_ReturnError()
     {
         // Arrange
-        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator);
+        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
         var query = A.Dummy<LoginQuery>();
 
-        A.CallTo(() => _userRepository.GetUserByEmail(query.Email)).Returns(null);
+        A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
+            .Returns(Task.FromResult((User?)null));
+
+        // Act
+        var result = handler.Handle(query, CancellationToken.None).Result;
+
+        // Assert
+        result.Value.Should().BeNull();
+        result.FirstError.Should().NotBeNull();
+        result.FirstError.Should().Be(Errors.Authentication.InvalidCredentials);
+    }
+
+    [Fact]
+    public void HandleLoginQuery_WhenInvalidPassword_ReturnError()
+    {
+        // Arrange
+        var handler = new LoginQueryHandler(_userRepository, _jwtTokenGenerator, _passwordHasher);
+        var query = A.Dummy<LoginQuery>();
+
+        A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email, A<CancellationToken>._))
+            .Returns(Task.FromResult((User?)null));
+        A.CallTo(() => _passwordHasher.Verify(query.Password, A<string>._))
+            .Returns(false);
 
         // Act
         var result = handler.Handle(query, CancellationToken.None).Result;
@@ -55,13 +81,11 @@ public class LoginQueryHandlerTests
     {
         protected override User Create()
         {
-            return new User
-            {
-                FirstName = string.Empty,
-                LastName = string.Empty,
-                Email = string.Empty,
-                Password = string.Empty,
-            };
+            return User.Create(
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty);
         }
     }
 }

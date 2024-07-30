@@ -1,4 +1,3 @@
-using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.RequestAggregate.ValueObjects;
 using InvenEase.Domain.StockistAggregate.ValueObjects;
@@ -12,7 +11,6 @@ public sealed class Stockist : AggregateRoot<StockistId>
 
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
-    public Role Role { get; private set; }
     public string ProfileImage { get; private set; }
     public UserId UserId { get; private set; }
     public IReadOnlyList<RequestId> RequestIds =>
@@ -24,7 +22,6 @@ public sealed class Stockist : AggregateRoot<StockistId>
         StockistId id,
         string firstName,
         string lastName,
-        Role role,
         string profileImage,
         UserId userId,
         DateTime createdDateTime,
@@ -32,7 +29,6 @@ public sealed class Stockist : AggregateRoot<StockistId>
     {
         FirstName = firstName;
         LastName = lastName;
-        Role = role;
         ProfileImage = profileImage;
         UserId = userId;
         CreatedDateTime = createdDateTime;
@@ -45,7 +41,6 @@ public sealed class Stockist : AggregateRoot<StockistId>
             StockistId.CreateUnique(),
             firstName,
             lastName,
-            Role.Stockist,
             profileImage,
             userId,
             DateTime.UtcNow,
