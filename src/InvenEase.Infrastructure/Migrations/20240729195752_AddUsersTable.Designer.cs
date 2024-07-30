@@ -3,6 +3,7 @@ using System;
 using InvenEase.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InvenEase.Infrastructure.Migrations
 {
     [DbContext(typeof(InvenEaseDbContext))]
-    partial class InvenEaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240729195752_AddUsersTable")]
+    partial class AddUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,57 +172,6 @@ namespace InvenEase.Infrastructure.Migrations
                     b.Navigation("OrderIds");
 
                     b.Navigation("RequestIds");
-                });
-
-            modelBuilder.Entity("InvenEase.Domain.UserAggregate.User", b =>
-                {
-                    b.OwnsMany("InvenEase.Domain.UserAggregate.ValueObjects.Permission", "Permissions", b1 =>
-                        {
-                            b1.Property<Guid>("UserId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int")
-                                .HasAnnotation("Key", 0);
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text")
-                                .HasColumnName("Permission");
-
-                            b1.HasKey("UserId", "Id");
-
-                            b1.ToTable("Permissions", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("UserId");
-                        });
-
-                    b.OwnsMany("InvenEase.Domain.UserAggregate.ValueObjects.Role", "Roles", b1 =>
-                        {
-                            b1.Property<Guid>("UserId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int")
-                                .HasAnnotation("Key", 0);
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text")
-                                .HasColumnName("Role");
-
-                            b1.HasKey("UserId", "Id");
-
-                            b1.ToTable("Roles", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("UserId");
-                        });
-
-                    b.Navigation("Permissions");
-
-                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
