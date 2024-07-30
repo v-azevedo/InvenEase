@@ -7,6 +7,7 @@ using InvenEase.Infrastructure.Persistence;
 using InvenEase.Infrastructure.Persistence.Repositories;
 using InvenEase.Infrastructure.Security;
 using InvenEase.Infrastructure.Security.CurrentUserProvider;
+using InvenEase.Infrastructure.Security.HashGenerator;
 using InvenEase.Infrastructure.Security.TokenGenerator;
 using InvenEase.Infrastructure.Services;
 using InvenEase.Infrastructure.Users.Repository;
@@ -66,6 +67,8 @@ public static class DependencyInjection
 
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
