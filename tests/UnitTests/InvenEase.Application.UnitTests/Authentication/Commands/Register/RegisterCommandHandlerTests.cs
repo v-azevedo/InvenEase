@@ -1,17 +1,19 @@
 using FakeItEasy;
+
 using FluentAssertions;
+
 using InvenEase.Application.Authentication.Commands.Register;
 using InvenEase.Application.Authentication.Common;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Domain.Common.Errors;
-using InvenEase.Domain.Entities;
+using InvenEase.Domain.UserAggregate;
 
 namespace InvenEase.Application.UnitTests.Authentication.Commands.Register;
 
 public class RegisterCommandHandlerTests
 {
-    private readonly IUserRepository _userRepository = A.Fake<IUserRepository>();
+    private readonly IUsersRepository _userRepository = A.Fake<IUsersRepository>();
     private readonly IJwtTokenGenerator _jwtTokenGenerator = A.Fake<IJwtTokenGenerator>();
 
     [Fact]
@@ -21,7 +23,8 @@ public class RegisterCommandHandlerTests
         var handler = new RegisterCommandHandler(_userRepository, _jwtTokenGenerator);
         var command = A.Dummy<RegisterCommand>();
 
-        A.CallTo(() => _userRepository.GetUserByEmail(command.Email)).Returns(null);
+        A.CallTo(() => _userRepository.GetUserByEmailAsync(command.Email, A<CancellationToken>._))
+            .Returns(Task.FromResult((User?)null));
 
         // Act
         var result = handler.Handle(command, CancellationToken.None).Result.Value;
@@ -38,7 +41,8 @@ public class RegisterCommandHandlerTests
         var handler = new RegisterCommandHandler(_userRepository, _jwtTokenGenerator);
         var command = A.Dummy<RegisterCommand>();
 
-        A.CallTo(() => _userRepository.GetUserByEmail(command.Email)).Returns(A.Dummy<User>());
+        A.CallTo(() => _userRepository.GetUserByEmailAsync(command.Email, A<CancellationToken>._))
+            .Returns(Task.FromResult(A.Dummy<User?>()));
 
         // Act
         var result = handler.Handle(command, CancellationToken.None).Result;
