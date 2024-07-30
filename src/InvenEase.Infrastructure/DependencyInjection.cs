@@ -3,10 +3,13 @@ using System.Text;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Common.Interfaces.Services;
-using InvenEase.Infrastructure.Authentication;
 using InvenEase.Infrastructure.Persistence;
 using InvenEase.Infrastructure.Persistence.Repositories;
+using InvenEase.Infrastructure.Security;
+using InvenEase.Infrastructure.Security.CurrentUserProvider;
+using InvenEase.Infrastructure.Security.TokenGenerator;
 using InvenEase.Infrastructure.Services;
+using InvenEase.Infrastructure.Users.Repository;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -23,15 +26,23 @@ public static class DependencyInjection
         this IServiceCollection services, ConfigurationManager configuration)
     {
         services
-            .AddAuth(configuration)
+            .AddHttpContextAccessor()
+            .AddServices()
+            .AddAuthentication(configuration)
+            .AddAuthorization()
             .AddPersistence(configuration);
 
+        return services;
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         return services;
     }
 
-    public static IServiceCollection AddPersistence(
+    private static IServiceCollection AddPersistence(
         this IServiceCollection services, IConfiguration configuration)
     {
         var postgresSettings = new PostgresSettings();
@@ -40,13 +51,14 @@ public static class DependencyInjection
         services.AddSingleton(Options.Create(postgresSettings));
         services.AddDbContext<InvenEaseDbContext>(options =>
             options.UseNpgsql(postgresSettings.ConnectionString));
-        services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IItemRepository, ItemRepository>();
 
         return services;
     }
 
-    public static IServiceCollection AddAuth(
+    private static IServiceCollection AddAuthentication(
         this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSettings = new JwtSettings();
@@ -67,6 +79,14 @@ public static class DependencyInjection
                 IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(jwtSettings.Secret)),
             });
+
+        return services;
+    }
+
+    private static IServiceCollection AddAuthorization(this IServiceCollection services)
+    {
+        services.AddScoped<IAuthorizationService, AuthorizationService>();
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
 
         return services;
     }
