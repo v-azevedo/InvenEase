@@ -3,8 +3,8 @@ using System.Text;
 using InvenEase.Application.Common.Interfaces.Authentication;
 using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Common.Interfaces.Services;
+using InvenEase.Infrastructure.Items.Repository;
 using InvenEase.Infrastructure.Persistence;
-using InvenEase.Infrastructure.Persistence.Repositories;
 using InvenEase.Infrastructure.Security;
 using InvenEase.Infrastructure.Security.CurrentUserProvider;
 using InvenEase.Infrastructure.Security.HashGenerator;
@@ -51,7 +51,9 @@ public static class DependencyInjection
 
         services.AddSingleton(Options.Create(postgresSettings));
         services.AddDbContext<InvenEaseDbContext>(options =>
-            options.UseNpgsql(postgresSettings.ConnectionString));
+            options.UseNpgsql(
+                postgresSettings.ConnectionString,
+                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IItemRepository, ItemRepository>();

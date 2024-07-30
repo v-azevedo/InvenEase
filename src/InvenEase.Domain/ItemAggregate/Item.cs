@@ -1,7 +1,13 @@
+using ErrorOr;
+
+using InvenEase.Domain.Common.Errors;
+
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.ItemAggregate.ValueObjects;
 using InvenEase.Domain.ObjectAggregate.ValueObjects;
+using InvenEase.Domain.OrderAggregate;
 using InvenEase.Domain.OrderAggregate.ValueObjects;
+using InvenEase.Domain.RequestAggregate;
 using InvenEase.Domain.RequestAggregate.ValueObjects;
 
 namespace InvenEase.Domain.ItemAggregate;
@@ -66,6 +72,49 @@ public sealed class Item : AggregateRoot<ItemId>
             minimumQuantity,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+
+    public void Update(
+        string name,
+        string description,
+        string code,
+        string imageUrl,
+        Dimensions dimensions,
+        int quantity,
+        int minimumQuantity)
+    {
+        Name = name;
+        Description = description;
+        Code = code;
+        ImageUrl = imageUrl;
+        Dimensions = dimensions;
+        Quantity = quantity;
+        MinimumQuantity = minimumQuantity;
+        UpdatedDateTime = DateTime.UtcNow;
+    }
+
+    public ErrorOr<Success> IncludeRequest(Request request)
+    {
+        if (_requestIds.Contains(request.Id))
+        {
+            return Errors.Item.AlreadyIncluded(nameof(Request));
+        }
+
+        _requestIds.Add(request.Id);
+
+        return Result.Success;
+    }
+
+    public ErrorOr<Success> IncludeOrder(Order order)
+    {
+        if (_orderIds.Contains(order.Id))
+        {
+            return Errors.Item.AlreadyIncluded(nameof(Order));
+        }
+
+        _orderIds.Add(order.Id);
+
+        return Result.Success;
     }
 
 #pragma warning disable CS8618

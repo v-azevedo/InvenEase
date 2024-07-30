@@ -4,7 +4,7 @@ using InvenEase.Domain.ItemAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace InvenEase.Infrastructure.Persistence.Configurations;
+namespace InvenEase.Infrastructure.Items.Repository;
 
 public class ItemConfigurations : IEntityTypeConfiguration<Item>
 {
@@ -61,6 +61,7 @@ public class ItemConfigurations : IEntityTypeConfiguration<Item>
 
         builder.Property(i => i.Id)
             /* .ValueGeneratedNever() */
+
             .HasConversion(
                 id => id.Value,
                 value => ItemId.Create(value));

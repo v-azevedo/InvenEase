@@ -7,16 +7,11 @@ using InvenEase.Application.Items.Commands.Common;
 
 using InvenEase.Domain.ItemAggregate;
 
-namespace InvenEase.Application.Items.Commands.CreateItem;
+namespace InvenEase.Application.Items.Commands.UpdateItem;
 
 [Authorize(Roles = Roles.Manager)]
-public record CreateItemCommand(
+public record UpdateItemCommand(
     Guid? UserId,
-    string Name,
-    string Description,
-    string Code,
-    string ImageUrl,
-    DimensionsCommand Dimensions,
-    int Quantity,
-    int MinimumQuantity
+    Guid Id,
+    ItemCommand Item
 ) : IAuthorizeableRequest<ErrorOr<Item>>;

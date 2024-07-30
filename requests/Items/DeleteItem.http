@@ -1,0 +1,5 @@
+@itemId=3ea91315-b38e-4779-9814-c32811e913e4
+
+DELETE {{host}}/items/{{itemId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}

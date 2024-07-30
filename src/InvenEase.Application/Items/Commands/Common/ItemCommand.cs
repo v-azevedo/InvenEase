@@ -1,11 +1,11 @@
-namespace InvenEase.Contracts.Items;
+namespace InvenEase.Application.Items.Commands.Common;
 
-public record CreateItemRequest(
+public record ItemCommand(
     string Name,
     string Description,
     string Code,
     string ImageUrl,
-    DimensionsRequest Dimensions,
+    DimensionsCommand Dimensions,
     int Quantity,
     int MinimumQuantity
-);
+    );

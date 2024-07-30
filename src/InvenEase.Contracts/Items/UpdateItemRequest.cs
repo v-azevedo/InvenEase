@@ -1,6 +1,6 @@
 namespace InvenEase.Contracts.Items;
 
-public record CreateItemRequest(
+public record UpdateItemRequest(
     string Name,
     string Description,
     string Code,
