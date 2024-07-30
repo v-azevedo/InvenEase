@@ -35,8 +35,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.FirstName)
             .HasMaxLength(50);
 
-        builder.Property(u => u.Password)
-            .HasMaxLength(50);
+        builder.Property(u => u.Password);
     }
 
     private static void ConfigureRolesTable(EntityTypeBuilder<User> builder)
