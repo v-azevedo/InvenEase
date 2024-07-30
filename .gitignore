@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# docker-compose files
+docker-compose.yml
+
 # User-specific files
 *.rsuser
 *.suo
