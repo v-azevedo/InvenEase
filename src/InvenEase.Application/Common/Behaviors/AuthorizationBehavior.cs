@@ -4,7 +4,6 @@ using ErrorOr;
 
 using InvenEase.Application.Common.Interfaces.Services;
 using InvenEase.Application.Common.Security.Request;
-using InvenEase.Infrastructure.Security.Request;
 
 using MediatR;
 
