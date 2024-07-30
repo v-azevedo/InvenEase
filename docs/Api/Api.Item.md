@@ -8,6 +8,12 @@
     - [Update](#update)
       - [Update Request](#update-request)
       - [Update Response](#update-response)
+    - [GetItem](#getitem)
+      - [GetItem Response](#getitem-response)
+    - [GetItems](#getitems)
+      - [GetItems Response](#getitems-response)
+    - [Delete](#delete)
+      - [Delete Response](#delete-response)
 
 ## Item
 
@@ -50,10 +56,10 @@ POST /items
   "code": "000000",
   "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
   "dimensions": {
-      "length": 10,
-      "width": 10,
-      "height": 2,
-      "weight": 5
+    "length": 10,
+    "width": 10,
+    "height": 2,
+    "weight": 5
   },
   "quantity": 8,
   "minimumQuantity": 5,
@@ -103,10 +109,10 @@ PUT /items/{id}
   "code": "000000",
   "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
   "dimensions": {
-      "length": 10,
-      "width": 8,
-      "height": 2,
-      "weight": 5
+    "length": 10,
+    "width": 8,
+    "height": 2,
+    "weight": 5
   },
   "quantity": 8,
   "minimumQuantity": 5,
@@ -115,4 +121,86 @@ PUT /items/{id}
   "createdDateTime": "2021-01-01T00:00:00Z",
   "updatedDateTime": "2021-01-01T00:00:00Z",
 }
+```
+
+### GetItem
+
+```javascript
+GET /items/{id}
+```
+
+#### GetItem Response
+
+```javascript
+200 OK
+```
+
+```json
+{
+  "id": "000000000-0000-0000-0000-000000000000",
+  "name": "Item",
+  "description": "Item description",
+  "code": "000000",
+  "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
+  "dimensions": {
+    "length": 10,
+    "width": 10,
+    "height": 2,
+    "weight": 5
+  },
+  "quantity": 8,
+  "minimumQuantity": 5,
+  "requestIds": [],
+  "orderIds": [],
+  "createdDateTime": "2021-01-01T00:00:00Z",
+  "updatedDateTime": "2021-01-01T00:00:00Z",
+}
+```
+
+### GetItems
+
+```javascript
+GET /items
+```
+
+#### GetItems Response
+
+```javascript
+200 OK
+```
+  
+```json
+[
+  {
+    "id": "000000000-0000-0000-0000-000000000000",
+    "name": "Item",
+    "description": "Item description",
+    "code": "000000",
+    "imageUrl": "https://utfs.io/f/e1c218ab-7827-4ff6-8a68-5c07e701ac24-y7xt7g.png",
+    "dimensions": {
+      "length": 10,
+      "width": 10,
+      "height": 2,
+      "weight": 5
+    },
+    "quantity": 8,
+    "minimumQuantity": 5,
+    "requestIds": [],
+    "orderIds": [],
+    "createdDateTime": "2021-01-01T00:00:00Z",
+    "updatedDateTime": "2021-01-01T00:00:00Z",
+  }
+]
+```
+
+### Delete
+
+```javascript
+DELETE /items/{id}
+```
+
+#### Delete Response
+
+```javascript
+204 NO CONTENT
 ```
