@@ -1,14 +1,17 @@
 using ErrorOr;
 
+using InvenEase.Application.Common.Security.Request;
+using InvenEase.Application.Common.Security.Roles;
+
 using InvenEase.Application.Items.Commands.Common;
 
 using InvenEase.Domain.ItemAggregate;
 
-using MediatR;
-
 namespace InvenEase.Application.Items.Commands.CreateItem;
 
+[Authorize(Roles = Roles.Manager)]
 public record CreateItemCommand(
+    Guid? UserId,
     string Name,
     string Description,
     string Code,
@@ -16,4 +19,4 @@ public record CreateItemCommand(
     DimensionsCommand Dimensions,
     int Quantity,
     int MinimumQuantity
-) : IRequest<ErrorOr<Item>>;
+) : IAuthorizeableRequest<ErrorOr<Item>>;
