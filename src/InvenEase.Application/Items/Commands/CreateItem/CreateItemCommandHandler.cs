@@ -11,8 +11,6 @@ namespace InvenEase.Application.Items.Commands.CreateItem;
 public class CreateItemCommandHandler(
     IItemRepository itemRepository) : IRequestHandler<CreateItemCommand, ErrorOr<Item>>
 {
-    private readonly IItemRepository _itemRepository = itemRepository;
-
     public async Task<ErrorOr<Item>> Handle(CreateItemCommand request, CancellationToken cancellationToken)
     {
         // Create Item
@@ -30,7 +28,7 @@ public class CreateItemCommandHandler(
             minimumQuantity: request.MinimumQuantity);
 
         // Persist Item
-        await _itemRepository.CreateAsync(createdItem, cancellationToken);
+        await itemRepository.CreateAsync(createdItem, cancellationToken);
 
         // Return Item
         return createdItem;
