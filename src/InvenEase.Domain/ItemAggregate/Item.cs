@@ -24,8 +24,8 @@ public sealed class Item : AggregateRoot<ItemId>
     public Dimensions Dimensions { get; private set; }
     public int Quantity { get; private set; }
     public int MinimumQuantity { get; private set; }
-    public IReadOnlyList<RequestId> RequestIds => _requestIds;
-    public IReadOnlyList<OrderId> OrderIds => _orderIds;
+    public IReadOnlyList<RequestId> RequestIds => _requestIds.AsReadOnly();
+    public IReadOnlyList<OrderId> OrderIds => _orderIds.AsReadOnly();
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
 
