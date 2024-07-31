@@ -10,9 +10,9 @@ public sealed class RequisitionItem : Entity<RequisitionItemId>
     public int Quantity { get; private set; }
 
     private RequisitionItem(
-        RequisitionItemId requestItemId,
+        RequisitionItemId requisitionItemId,
         ItemId itemId,
-        int quantity) : base(requestItemId)
+        int quantity) : base(requisitionItemId)
     {
         Quantity = quantity;
         ItemId = itemId;

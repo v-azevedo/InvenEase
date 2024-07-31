@@ -14,7 +14,7 @@ namespace InvenEase.Domain.ItemAggregate;
 
 public sealed class Item : AggregateRoot<ItemId>
 {
-    private readonly List<RequisitionId> _requestIds = [];
+    private readonly List<RequisitionId> _requisitionIds = [];
     private readonly List<OrderId> _orderIds = [];
 
     public string Name { get; private set; }
@@ -24,7 +24,7 @@ public sealed class Item : AggregateRoot<ItemId>
     public Dimensions Dimensions { get; private set; }
     public int Quantity { get; private set; }
     public int MinimumQuantity { get; private set; }
-    public IReadOnlyList<RequisitionId> RequisitionIds => _requestIds.AsReadOnly();
+    public IReadOnlyList<RequisitionId> RequisitionIds => _requisitionIds.AsReadOnly();
     public IReadOnlyList<OrderId> OrderIds => _orderIds.AsReadOnly();
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
@@ -93,14 +93,14 @@ public sealed class Item : AggregateRoot<ItemId>
         UpdatedDateTime = DateTime.UtcNow;
     }
 
-    public ErrorOr<Success> IncludeRequisition(Requisition request)
+    public ErrorOr<Success> IncludeRequisition(Requisition requisition)
     {
-        if (_requestIds.Contains(request.Id))
+        if (_requisitionIds.Contains(requisition.Id))
         {
             return Errors.Item.AlreadyIncluded(nameof(Requisition));
         }
 
-        _requestIds.Add(request.Id);
+        _requisitionIds.Add(requisition.Id);
 
         return Result.Success;
     }

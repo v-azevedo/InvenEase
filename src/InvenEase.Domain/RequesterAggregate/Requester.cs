@@ -1,20 +1,20 @@
 using InvenEase.Domain.Common.Models;
-using InvenEase.Domain.RequestAggregate.ValueObjects;
 using InvenEase.Domain.RequesterAggregate.ValueObjects;
+using InvenEase.Domain.RequisitionAggregate.ValueObjects;
 using InvenEase.Domain.UserAggregate.ValueObjects;
 
 namespace InvenEase.Domain.RequesterAggregate;
 
 public sealed class Requester : AggregateRoot<RequesterId>
 {
-    private readonly List<RequestId> _requestIds = [];
+    private readonly List<RequisitionId> _requisitionIds = [];
 
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string ProfileImage { get; private set; }
     public UserId UserId { get; private set; }
-    public IReadOnlyList<RequestId> RequestIds =>
-        _requestIds.AsReadOnly();
+    public IReadOnlyList<RequisitionId> RequisitionIds =>
+        _requisitionIds.AsReadOnly();
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
 

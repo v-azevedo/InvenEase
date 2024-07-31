@@ -6,9 +6,9 @@ namespace InvenEase.Infrastructure.Requisitions.Repository;
 
 public class RequisitionsRepository(InvenEaseDbContext dbContext) : IRequisitionRepository
 {
-    public async Task CreateAsync(Requisition request, CancellationToken cancellationToken)
+    public async Task CreateAsync(Requisition requisition, CancellationToken cancellationToken)
     {
-        await dbContext.AddAsync(request, cancellationToken);
+        await dbContext.AddAsync(requisition, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

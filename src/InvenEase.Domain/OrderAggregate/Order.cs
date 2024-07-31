@@ -32,7 +32,7 @@ public sealed class Order : AggregateRoot<OrderId>
         bool approved,
         string invoice,
         string deliveryNote,
-        RequisitionId? requestId,
+        RequisitionId? requisitionId,
         StockistId stockistId,
         ManagerId managerId,
         DateTime createdDateTime,
@@ -44,14 +44,14 @@ public sealed class Order : AggregateRoot<OrderId>
         Approved = approved;
         Invoice = invoice;
         DeliveryNote = deliveryNote;
-        RequisitionId = requestId;
+        RequisitionId = requisitionId;
         StockistId = stockistId;
         ManagerId = managerId;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
 
-    public static Order Create(string description, Urgency urgency, RequisitionId? requestId, StockistId stockistId, ManagerId managerId)
+    public static Order Create(string description, Urgency urgency, RequisitionId? requisitionId, StockistId stockistId, ManagerId managerId)
     {
         return new Order(
             OrderId.CreateUnique(),
@@ -61,7 +61,7 @@ public sealed class Order : AggregateRoot<OrderId>
             false,
             string.Empty,
             string.Empty,
-            requestId,
+            requisitionId,
             stockistId,
             managerId,
             DateTime.UtcNow,

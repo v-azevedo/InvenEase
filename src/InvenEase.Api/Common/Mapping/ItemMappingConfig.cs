@@ -18,7 +18,7 @@ public class ItemMappingConfig : IRegister
 
         config.NewConfig<Item, ItemResponse>()
             .Map(dest => dest.Id, src => src.Id.Value)
-            .Map(dest => dest.RequisitionIds, src => src.RequisitionIds.Select(requestId => requestId.Value))
+            .Map(dest => dest.RequisitionIds, src => src.RequisitionIds.Select(requisitionId => requisitionId.Value))
             .Map(dest => dest.OrderIds, src => src.OrderIds.Select(orderId => orderId.Value));
 
         config.NewConfig<(UpdateItemRequest request, Guid Id), UpdateItemCommand>()

@@ -9,7 +9,7 @@ namespace InvenEase.Domain.ManagerAggregate;
 public sealed class Manager : AggregateRoot<ManagerId>
 {
     private readonly List<OrderId> _ordersIds = [];
-    private readonly List<RequisitionId> _requestsIds = [];
+    private readonly List<RequisitionId> _requisitionsIds = [];
 
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
@@ -18,7 +18,7 @@ public sealed class Manager : AggregateRoot<ManagerId>
     public IReadOnlyList<OrderId> OrderIds =>
         _ordersIds.AsReadOnly();
     public IReadOnlyList<RequisitionId> RequisitionIds =>
-        _requestsIds.AsReadOnly();
+        _requisitionsIds.AsReadOnly();
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
 
