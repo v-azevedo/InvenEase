@@ -11,6 +11,11 @@ public sealed class RequesterId : ValueObject
         Value = value;
     }
 
+    public static RequesterId Create(Guid value)
+    {
+        return new(value);
+    }
+
     public static RequesterId CreateUnique()
     {
         return new(Guid.NewGuid());

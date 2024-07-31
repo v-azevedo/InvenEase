@@ -11,6 +11,11 @@ public sealed class StockistId : ValueObject
         Value = value;
     }
 
+    public static StockistId Create(Guid value)
+    {
+        return new(value);
+    }
+
     public static StockistId CreateUnique()
     {
         return new(Guid.NewGuid());
