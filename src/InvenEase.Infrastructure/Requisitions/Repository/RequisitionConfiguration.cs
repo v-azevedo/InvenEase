@@ -1,38 +1,38 @@
 using InvenEase.Domain.ItemAggregate.ValueObjects;
-using InvenEase.Domain.RequestAggregate;
-using InvenEase.Domain.RequestAggregate.ValueObjects;
 using InvenEase.Domain.RequesterAggregate.ValueObjects;
+using InvenEase.Domain.RequisitionAggregate;
+using InvenEase.Domain.RequisitionAggregate.ValueObjects;
 using InvenEase.Domain.StockistAggregate.ValueObjects;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace InvenEase.Infrastructure.Requests.Repository;
+namespace InvenEase.Infrastructure.Requisitions.Repository;
 
-public class RequestConfiguration : IEntityTypeConfiguration<Request>
+public class RequisitionConfiguration : IEntityTypeConfiguration<Requisition>
 {
-    public void Configure(EntityTypeBuilder<Request> builder)
+    public void Configure(EntityTypeBuilder<Requisition> builder)
     {
-        ConfigureRequestTable(builder);
-        ConfigureRequestItemsTable(builder);
-        ConfigureRequestOrderIdsTable(builder);
+        ConfigureRequisitionTable(builder);
+        ConfigureRequisitionItemsTable(builder);
+        ConfigureRequisitionOrderIdsTable(builder);
     }
 
-    private static void ConfigureRequestItemsTable(EntityTypeBuilder<Request> builder)
+    private static void ConfigureRequisitionItemsTable(EntityTypeBuilder<Requisition> builder)
     {
         builder.OwnsMany(r => r.Items, rib =>
         {
-            rib.ToTable("RequestItems");
+            rib.ToTable("RequisitionItems");
 
-            rib.WithOwner().HasForeignKey("RequestId");
+            rib.WithOwner().HasForeignKey("RequisitionId");
 
-            rib.HasKey("Id", "RequestId");
+            rib.HasKey("Id", "RequisitionId");
 
             rib.Property(ri => ri.Id)
-                .HasColumnName("RequestItemId")
+                .HasColumnName("RequisitionItemId")
                 .HasConversion(
                     id => id.Value,
-                    value => RequestItemId.Create(value));
+                    value => RequisitionItemId.Create(value));
 
             rib.Property(ri => ri.ItemId)
                 .HasConversion(
@@ -40,17 +40,17 @@ public class RequestConfiguration : IEntityTypeConfiguration<Request>
                     value => ItemId.Create(value));
         });
 
-        builder.Metadata.FindNavigation(nameof(Request.Items))!
+        builder.Metadata.FindNavigation(nameof(Requisition.Items))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 
-    private static void ConfigureRequestOrderIdsTable(EntityTypeBuilder<Request> builder)
+    private static void ConfigureRequisitionOrderIdsTable(EntityTypeBuilder<Requisition> builder)
     {
         builder.OwnsMany(r => r.OrderIds, oib =>
         {
-            oib.ToTable("RequestOrderIds");
+            oib.ToTable("RequisitionOrderIds");
 
-            oib.WithOwner().HasForeignKey("RequestId");
+            oib.WithOwner().HasForeignKey("RequisitionId");
 
             oib.HasKey("Id");
 
@@ -58,20 +58,20 @@ public class RequestConfiguration : IEntityTypeConfiguration<Request>
                 .HasColumnName("OrderId");
         });
 
-        builder.Metadata.FindNavigation(nameof(Request.OrderIds))!
+        builder.Metadata.FindNavigation(nameof(Requisition.OrderIds))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 
-    private static void ConfigureRequestTable(EntityTypeBuilder<Request> builder)
+    private static void ConfigureRequisitionTable(EntityTypeBuilder<Requisition> builder)
     {
-        builder.ToTable("Requests");
+        builder.ToTable("Requisitions");
 
         builder.HasKey(r => r.Id);
 
         builder.Property(r => r.Id)
             .HasConversion(
                 id => id.Value,
-                value => RequestId.Create(value));
+                value => RequisitionId.Create(value));
 
         builder.Property(r => r.Description)
             .HasMaxLength(200);

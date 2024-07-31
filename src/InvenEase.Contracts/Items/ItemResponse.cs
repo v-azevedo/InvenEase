@@ -9,7 +9,7 @@ public record ItemResponse(
     DimensionsResponse Dimensions,
     int Quantity,
     int MinimumQuantity,
-    List<string> RequestIds,
+    List<string> RequisitionIds,
     List<string> OrderIds,
     DateTime CreatedDateTime,
     DateTime UpdatedDateTime

@@ -1,7 +1,7 @@
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.ManagerAggregate.ValueObjects;
 using InvenEase.Domain.OrderAggregate.ValueObjects;
-using InvenEase.Domain.RequestAggregate.ValueObjects;
+using InvenEase.Domain.RequisitionAggregate.ValueObjects;
 using InvenEase.Domain.UserAggregate.ValueObjects;
 
 namespace InvenEase.Domain.ManagerAggregate;
@@ -9,7 +9,7 @@ namespace InvenEase.Domain.ManagerAggregate;
 public sealed class Manager : AggregateRoot<ManagerId>
 {
     private readonly List<OrderId> _ordersIds = [];
-    private readonly List<RequestId> _requestsIds = [];
+    private readonly List<RequisitionId> _requestsIds = [];
 
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
@@ -17,7 +17,7 @@ public sealed class Manager : AggregateRoot<ManagerId>
     public UserId UserId { get; private set; }
     public IReadOnlyList<OrderId> OrderIds =>
         _ordersIds.AsReadOnly();
-    public IReadOnlyList<RequestId> RequestIds =>
+    public IReadOnlyList<RequisitionId> RequisitionIds =>
         _requestsIds.AsReadOnly();
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }

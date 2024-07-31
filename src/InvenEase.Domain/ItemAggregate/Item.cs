@@ -7,14 +7,14 @@ using InvenEase.Domain.ItemAggregate.ValueObjects;
 using InvenEase.Domain.ObjectAggregate.ValueObjects;
 using InvenEase.Domain.OrderAggregate;
 using InvenEase.Domain.OrderAggregate.ValueObjects;
-using InvenEase.Domain.RequestAggregate;
-using InvenEase.Domain.RequestAggregate.ValueObjects;
+using InvenEase.Domain.RequisitionAggregate;
+using InvenEase.Domain.RequisitionAggregate.ValueObjects;
 
 namespace InvenEase.Domain.ItemAggregate;
 
 public sealed class Item : AggregateRoot<ItemId>
 {
-    private readonly List<RequestId> _requestIds = [];
+    private readonly List<RequisitionId> _requestIds = [];
     private readonly List<OrderId> _orderIds = [];
 
     public string Name { get; private set; }
@@ -24,7 +24,7 @@ public sealed class Item : AggregateRoot<ItemId>
     public Dimensions Dimensions { get; private set; }
     public int Quantity { get; private set; }
     public int MinimumQuantity { get; private set; }
-    public IReadOnlyList<RequestId> RequestIds => _requestIds.AsReadOnly();
+    public IReadOnlyList<RequisitionId> RequisitionIds => _requestIds.AsReadOnly();
     public IReadOnlyList<OrderId> OrderIds => _orderIds.AsReadOnly();
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
@@ -93,11 +93,11 @@ public sealed class Item : AggregateRoot<ItemId>
         UpdatedDateTime = DateTime.UtcNow;
     }
 
-    public ErrorOr<Success> IncludeRequest(Request request)
+    public ErrorOr<Success> IncludeRequisition(Requisition request)
     {
         if (_requestIds.Contains(request.Id))
         {
-            return Errors.Item.AlreadyIncluded(nameof(Request));
+            return Errors.Item.AlreadyIncluded(nameof(Requisition));
         }
 
         _requestIds.Add(request.Id);

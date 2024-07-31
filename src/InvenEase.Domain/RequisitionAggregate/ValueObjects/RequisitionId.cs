@@ -1,22 +1,22 @@
 using InvenEase.Domain.Common.Models;
 
-namespace InvenEase.Domain.RequestAggregate.ValueObjects;
+namespace InvenEase.Domain.RequisitionAggregate.ValueObjects;
 
-public sealed class RequestItemId : ValueObject
+public sealed class RequisitionId : ValueObject
 {
     public Guid Value { get; }
 
-    private RequestItemId(Guid value)
+    private RequisitionId(Guid value)
     {
         Value = value;
     }
 
-    public static RequestItemId Create(Guid value)
+    public static RequisitionId Create(Guid value)
     {
         return new(value);
     }
 
-    public static RequestItemId CreateUnique()
+    public static RequisitionId CreateUnique()
     {
         return new(Guid.NewGuid());
     }

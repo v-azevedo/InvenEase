@@ -11,26 +11,26 @@ public class ItemConfigurations : IEntityTypeConfiguration<Item>
     public void Configure(EntityTypeBuilder<Item> builder)
     {
         ConfigureItemTable(builder);
-        ConfigureItemRequestIdsTable(builder);
+        ConfigureItemRequisitionIdsTable(builder);
         ConfigureItemOrderIdsTable(builder);
     }
 
-    private static void ConfigureItemRequestIdsTable(EntityTypeBuilder<Item> builder)
+    private static void ConfigureItemRequisitionIdsTable(EntityTypeBuilder<Item> builder)
     {
-        builder.OwnsMany(i => i.RequestIds, rib =>
+        builder.OwnsMany(i => i.RequisitionIds, rib =>
         {
-            rib.ToTable("ItemRequestIds");
+            rib.ToTable("ItemRequisitionIds");
 
             rib.WithOwner().HasForeignKey("ItemId");
 
             rib.HasKey("Id");
 
             rib.Property(ri => ri.Value)
-                .HasColumnName("RequestId")
+                .HasColumnName("RequisitionId")
                 .ValueGeneratedNever();
         });
 
-        builder.Metadata.FindNavigation(nameof(Item.RequestIds))!
+        builder.Metadata.FindNavigation(nameof(Item.RequisitionIds))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 

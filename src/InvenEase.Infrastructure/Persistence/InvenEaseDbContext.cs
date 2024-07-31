@@ -1,5 +1,5 @@
 using InvenEase.Domain.ItemAggregate;
-using InvenEase.Domain.RequestAggregate;
+using InvenEase.Domain.RequisitionAggregate;
 using InvenEase.Domain.UserAggregate;
 
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ public class InvenEaseDbContext(DbContextOptions<InvenEaseDbContext> options) : 
 {
     public DbSet<Item> Items { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
-    public DbSet<Request> Requests { get; set; } = null!;
+    public DbSet<Requisition> Requisitions { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

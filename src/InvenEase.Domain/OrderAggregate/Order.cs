@@ -2,7 +2,7 @@ using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.ManagerAggregate.ValueObjects;
 using InvenEase.Domain.OrderAggregate.ValueObjects;
-using InvenEase.Domain.RequestAggregate.ValueObjects;
+using InvenEase.Domain.RequisitionAggregate.ValueObjects;
 using InvenEase.Domain.StockistAggregate.ValueObjects;
 
 namespace InvenEase.Domain.OrderAggregate;
@@ -18,7 +18,7 @@ public sealed class Order : AggregateRoot<OrderId>
     public bool Approved { get; private set; }
     public string Invoice { get; private set; }
     public string DeliveryNote { get; private set; }
-    public RequestId? RequestId { get; private set; }
+    public RequisitionId? RequisitionId { get; private set; }
     public StockistId StockistId { get; private set; }
     public ManagerId ManagerId { get; private set; }
     public DateTime CreatedDateTime { get; private set; }
@@ -32,7 +32,7 @@ public sealed class Order : AggregateRoot<OrderId>
         bool approved,
         string invoice,
         string deliveryNote,
-        RequestId? requestId,
+        RequisitionId? requestId,
         StockistId stockistId,
         ManagerId managerId,
         DateTime createdDateTime,
@@ -44,14 +44,14 @@ public sealed class Order : AggregateRoot<OrderId>
         Approved = approved;
         Invoice = invoice;
         DeliveryNote = deliveryNote;
-        RequestId = requestId;
+        RequisitionId = requestId;
         StockistId = stockistId;
         ManagerId = managerId;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
 
-    public static Order Create(string description, Urgency urgency, RequestId? requestId, StockistId stockistId, ManagerId managerId)
+    public static Order Create(string description, Urgency urgency, RequisitionId? requestId, StockistId stockistId, ManagerId managerId)
     {
         return new Order(
             OrderId.CreateUnique(),

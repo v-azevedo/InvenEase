@@ -1,24 +1,22 @@
 using InvenEase.Domain.Common.Enums;
 using InvenEase.Domain.Common.Models;
 using InvenEase.Domain.OrderAggregate.ValueObjects;
-using InvenEase.Domain.RequestAggregate.Entities;
-using InvenEase.Domain.RequestAggregate.ValueObjects;
 using InvenEase.Domain.RequesterAggregate.ValueObjects;
+using InvenEase.Domain.RequisitionAggregate.Entities;
+using InvenEase.Domain.RequisitionAggregate.ValueObjects;
 using InvenEase.Domain.StockistAggregate.ValueObjects;
 
-namespace InvenEase.Domain.RequestAggregate;
+namespace InvenEase.Domain.RequisitionAggregate;
 
-public sealed class Request : AggregateRoot<RequestId>
+public sealed class Requisition : AggregateRoot<RequisitionId>
 {
-    private readonly List<RequestItem> _items = [];
     private readonly List<OrderId> _orderIds = [];
 
     public string Description { get; private set; }
     public Status Status { get; private set; }
     public Urgency Urgency { get; private set; }
     public bool RequesterDelivered { get; private set; }
-    public IReadOnlyList<RequestItem> Items =>
-        _items.AsReadOnly();
+    public IReadOnlyList<RequisitionItem> Items { get; private set; }
     public IReadOnlyList<OrderId> OrderIds =>
         _orderIds.AsReadOnly();
     public RequesterId RequesterId { get; private set; }
@@ -26,14 +24,15 @@ public sealed class Request : AggregateRoot<RequestId>
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
 
-    private Request(
-        RequestId id,
+    private Requisition(
+        RequisitionId id,
         string description,
         Status status,
         Urgency urgency,
         bool requesterDelivered,
         RequesterId requesterId,
         StockistId stockistId,
+        List<RequisitionItem> items,
         DateTime createdDateTime,
         DateTime updatedDateTime) : base(id)
     {
@@ -43,26 +42,28 @@ public sealed class Request : AggregateRoot<RequestId>
         RequesterDelivered = requesterDelivered;
         RequesterId = requesterId;
         StockistId = stockistId;
+        Items = items;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
 
-    public static Request Create(string description, Urgency urgency, RequesterId requesterId, StockistId stockistId)
+    public static Requisition Create(string description, Urgency urgency, RequesterId requesterId, StockistId stockistId, List<RequisitionItem> items)
     {
-        return new Request(
-            RequestId.CreateUnique(),
+        return new Requisition(
+            RequisitionId.CreateUnique(),
             description,
             Status.Pending,
             urgency,
             false,
             requesterId,
             stockistId,
+            items,
             DateTime.UtcNow,
             DateTime.UtcNow);
     }
 
 #pragma warning disable CS8618
-    private Request()
+    private Requisition()
     {
     }
 }
