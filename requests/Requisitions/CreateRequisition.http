@@ -1,0 +1,21 @@
+@requesterId=8191134c-99b0-45f3-82c4-e5507b119f70
+
+POST {{host}}/requisitions/{{requesterId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "description": "Requisition description",
+    "urgency": "High",
+    "items": [
+        {
+            "ItemId": "a1bc8a7c-adc8-43cc-841b-8ccef2cc7e8e",
+            "quantity": 5
+        },
+        {
+            "ItemId": "a1bc8a7c-adc8-43cc-841b-8ccef2cc7e8e",
+            "quantity": 3
+        }
+    ],
+    "requesterId": "{{requesterId}}"
+}
