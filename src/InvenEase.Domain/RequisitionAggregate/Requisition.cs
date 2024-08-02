@@ -20,7 +20,7 @@ public sealed class Requisition : AggregateRoot<RequisitionId>
     public IReadOnlyList<OrderId> OrderIds =>
         _orderIds.AsReadOnly();
     public RequesterId RequesterId { get; private set; }
-    public StockistId StockistId { get; private set; }
+    public StockistId? StockistId { get; private set; }
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
 
@@ -31,7 +31,6 @@ public sealed class Requisition : AggregateRoot<RequisitionId>
         Urgency urgency,
         bool requesterDelivered,
         RequesterId requesterId,
-        StockistId stockistId,
         List<RequisitionItem> items,
         DateTime createdDateTime,
         DateTime updatedDateTime) : base(id)
@@ -41,13 +40,12 @@ public sealed class Requisition : AggregateRoot<RequisitionId>
         Urgency = urgency;
         RequesterDelivered = requesterDelivered;
         RequesterId = requesterId;
-        StockistId = stockistId;
         Items = items;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
 
-    public static Requisition Create(string description, Urgency urgency, RequesterId requesterId, StockistId stockistId, List<RequisitionItem> items)
+    public static Requisition Create(string description, Urgency urgency, RequesterId requesterId, List<RequisitionItem> items)
     {
         return new Requisition(
             RequisitionId.CreateUnique(),
@@ -56,7 +54,6 @@ public sealed class Requisition : AggregateRoot<RequisitionId>
             urgency,
             false,
             requesterId,
-            stockistId,
             items,
             DateTime.UtcNow,
             DateTime.UtcNow);
