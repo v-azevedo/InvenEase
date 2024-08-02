@@ -5,6 +5,7 @@ using InvenEase.Application.Common.Interfaces.Persistence;
 using InvenEase.Application.Common.Interfaces.Services;
 using InvenEase.Infrastructure.Items.Repository;
 using InvenEase.Infrastructure.Persistence;
+using InvenEase.Infrastructure.Requisitions.Repository;
 using InvenEase.Infrastructure.Security;
 using InvenEase.Infrastructure.Security.CurrentUserProvider;
 using InvenEase.Infrastructure.Security.HashGenerator;
@@ -57,6 +58,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IItemRepository, ItemRepository>();
+        services.AddScoped<IRequisitionRepository, RequisitionsRepository>();
 
         return services;
     }
