@@ -83,7 +83,8 @@ public class RequisitionConfiguration : IEntityTypeConfiguration<Requisition>
 
         builder.Property(r => r.StockistId)
             .HasConversion(
-                id => id.Value,
-                value => StockistId.Create(value));
+                id => id!.Value,
+                value => StockistId.Create(value))
+            .IsRequired(false);
     }
 }
